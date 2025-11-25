@@ -14,6 +14,7 @@
            - "Physics Hints" replaced with "Derivation Guides" (no free formulas).
            - Added requirements for Energy Bar Charts (LOL Diagrams).
            - Rubric adjusted to 150pts with emphasis on Derivations and Energy Analysis.
+           - FIXED: Equations now use HTML entities/tags instead of raw LaTeX for proper browser rendering.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
@@ -77,6 +78,19 @@
             color: white;
             font-size: 10px;
             transition: height 0.5s;
+        }
+        /* Equation formatting */
+        .eq {
+            font-family: 'Times New Roman', Times, serif;
+            font-style: italic;
+        }
+        .eq-block {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: white;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            display: block;
+            margin-bottom: 0.5rem;
         }
     </style>
 </head>
@@ -146,23 +160,23 @@
                     <li><strong>Data Tables:</strong> 
                         <ul class="list-disc pl-5 mt-2">
                             <li><strong>Table 1 (Raw Data):</strong> Time/Distance to Snap, Time/Distance to Stop.</li>
-                            <li><strong>Table 2 (Calculated):</strong> Acceleration (start), Velocity (snap), Kinetic Energy (snap), Work done by Friction, Coefficient of Friction ($\mu$).</li>
+                            <li><strong>Table 2 (Calculated):</strong> Acceleration (start), Velocity (snap), Kinetic Energy (snap), Work done by Friction, Coefficient of Friction (<span class="eq">&mu;</span>).</li>
                         </ul>
                     </li>
                     <li><strong>Derivations & Calculations:</strong> 
                         <ul class="list-disc pl-5 mt-2">
-                            <li><strong>Derivations:</strong> Start from fundamental laws (e.g., $W = \Delta E$, $\Sigma F = ma$) to derive the algebraic expressions for your calculated variables.</li>
+                            <li><strong>Derivations:</strong> Start from fundamental laws (e.g., <span class="eq"><i>W</i> = &Delta;<i>E</i></span>, <span class="eq">&Sigma;<i>F</i> = <i>ma</i></span>) to derive the algebraic expressions for your calculated variables.</li>
                             <li><strong>Samples:</strong> Show one calculation for each equation using your data.</li>
                         </ul>
                     </li>
                     <li><strong>Energy Analysis (Charts):</strong> 
                         <br>Include <strong>Energy Bar Charts (LOL Diagrams)</strong> showing the system at:
                         <ul class="list-disc pl-5">
-                            <li>State A: Start ($t=0$)</li>
-                            <li>State B: Snap ($t_{snap}$)</li>
-                            <li>State C: Stop ($t_{stop}$)</li>
+                            <li>State A: Start (<span class="eq"><i>t</i>=0</span>)</li>
+                            <li>State B: Snap (<span class="eq"><i>t</i><sub>snap</sub></span>)</li>
+                            <li>State C: Stop (<span class="eq"><i>t</i><sub>stop</sub></span>)</li>
                         </ul>
-                        <br>Explicitly show the Work done by friction ($W_{nc}$) removing energy from the system.
+                        <br>Explicitly show the Work done by friction (<span class="eq"><i>W</i><sub>nc</sub></span>) removing energy from the system.
                     </li>
                     <li><strong>Physics Theory (2 Paragraphs):</strong> 
                         <br>Discuss the physics concepts (Conservation of Energy, Rotational Inertia, Friction) applied to your design.</li>
@@ -209,18 +223,18 @@
                     <div class="space-y-6">
                         <section>
                             <h3 class="text-xl font-bold border-b border-black mb-2">1. Objective</h3>
-                            <p>The objective was to maximize the distance of a mousetrap-powered vehicle by optimizing the conversion of elastic potential energy ($U_s$) into translational kinetic energy ($K_t$). The goal was 14.0m; we achieved 15.2m.</p>
+                            <p>The objective was to maximize the distance of a mousetrap-powered vehicle by optimizing the conversion of elastic potential energy <span class="eq">(<i>U</i><sub>s</sub>)</span> into translational kinetic energy <span class="eq">(<i>K</i><sub>t</sub>)</span>. The goal was 14.0m; we achieved 15.2m.</p>
                         </section>
 
                         <section>
                             <h3 class="text-xl font-bold border-b border-black mb-2">3. Derivations & Calculations</h3>
                             <div class="bg-slate-50 p-4 border border-slate-300 mb-4">
-                                <p class="font-bold italic">Sample Derivation: Acceleration during Coasting</p>
+                                <p class="font-bold italic text-teal-700 mb-2">Sample Derivation: Acceleration during Coasting</p>
                                 <p>Using the Work-Energy Theorem for the coasting phase (Snap to Stop):</p>
-                                <p>$W_{net} = \Delta K$</p>
-                                <p>$F_f \cdot d = 0 - \frac{1}{2}mv^2$</p>
-                                <p>Using Newton's Second Law ($\Sigma F = ma$):</p>
-                                <p>$-F_f = ma \rightarrow a = \frac{-F_f}{m}$</p>
+                                <code class="eq-block"><i>W</i><sub>net</sub> = &Delta;<i>K</i></code>
+                                <code class="eq-block"><i>F</i><sub>f</sub> &middot; <i>d</i> = 0 - &frac12;<i>mv</i><sup>2</sup></code>
+                                <p>Using Newton's Second Law (<span class="eq">&Sigma;<i>F</i> = <i>ma</i></span>):</p>
+                                <code class="eq-block">-<i>F</i><sub>f</sub> = <i>ma</i> &nbsp;&rarr;&nbsp; <i>a</i> = (-<i>F</i><sub>f</sub>) / <i>m</i></code>
                             </div>
                             
                             <h4 class="font-bold mt-4">Data Table 2: Calculated Variables</h4>
@@ -230,7 +244,7 @@
                                         <th class="border border-black p-1">Accel (Start)</th>
                                         <th class="border border-black p-1">Velocity (Snap)</th>
                                         <th class="border border-black p-1">Kinetic Energy</th>
-                                        <th class="border border-black p-1">Work ($W_{nc}$)</th>
+                                        <th class="border border-black p-1">Work (<span class="eq"><i>W</i><sub>nc</sub></span>)</th>
                                     </tr>
                                     <tr>
                                         <td class="border border-black p-1">1.1 m/s²</td>
@@ -244,7 +258,7 @@
 
                         <section>
                             <h3 class="text-xl font-bold border-b border-black mb-2">4. Energy Analysis (Energy Charts)</h3>
-                            <p class="mb-2">The following charts illustrate the flow of energy. Note that at the "Stop" phase, all mechanical energy has been dissipated as Work done by friction ($W_{f}$).</p>
+                            <p class="mb-2">The following charts illustrate the flow of energy. Note that at the "Stop" phase, all mechanical energy has been dissipated as Work done by friction <span class="eq">(<i>W</i><sub>f</sub>)</span>.</p>
                             
                             <div class="grid grid-cols-3 gap-4 mb-4 text-center">
                                 <div>
@@ -289,9 +303,9 @@
                         <h3 class="text-lg font-bold text-indigo-800">1. Kinematics (The Snap)</h3>
                         <p class="text-sm text-slate-700 mb-2">Assume constant acceleration during the snap phase.</p>
                         <ul class="list-disc pl-5 text-sm">
-                            <li>You know initial velocity ($v_0 = 0$), distance ($d_1$), and time ($t_1$).</li>
-                            <li><strong>Derive:</strong> Which Kinematic equation allows you to solve for acceleration ($a$) using only these variables?</li>
-                            <li><strong>Derive:</strong> Once you have $a$, how do you find $v_f$ (velocity at snap)?</li>
+                            <li>You know initial velocity <span class="eq">(<i>v</i><sub>0</sub> = 0)</span>, distance <span class="eq">(<i>d</i><sub>1</sub>)</span>, and time <span class="eq">(<i>t</i><sub>1</sub>)</span>.</li>
+                            <li><strong>Derive:</strong> Which Kinematic equation allows you to solve for acceleration <span class="eq">(<i>a</i>)</span> using only these variables?</li>
+                            <li><strong>Derive:</strong> Once you have <span class="eq"><i>a</i></span>, how do you find <span class="eq"><i>v</i><sub>f</sub></span> (velocity at snap)?</li>
                         </ul>
                     </div>
 
@@ -299,9 +313,9 @@
                         <h3 class="text-lg font-bold text-purple-800">2. Work-Energy Theorem</h3>
                         <p class="text-sm text-slate-700 mb-2">Analyze the coasting phase (from Snap to Stop).</p>
                         <ul class="list-disc pl-5 text-sm">
-                            <li>The car starts with $KE_{max}$ and ends with 0.</li>
-                            <li><strong>Derive:</strong> Use $W_{nc} = \Delta E$ to find the Work done by friction.</li>
-                            <li><strong>Calculate:</strong> What is the average force of friction ($F_f$)?</li>
+                            <li>The car starts with <span class="eq"><i>KE</i><sub>max</sub></span> and ends with 0.</li>
+                            <li><strong>Derive:</strong> Use <span class="eq"><i>W</i><sub>nc</sub> = &Delta;<i>E</i></span> to find the Work done by friction.</li>
+                            <li><strong>Calculate:</strong> What is the average force of friction <span class="eq">(<i>F</i><sub>f</sub>)</span>?</li>
                         </ul>
                     </div>
 
@@ -309,9 +323,9 @@
                         <h3 class="text-lg font-bold text-orange-800">3. Energy Charts (LOL Diagrams)</h3>
                         <p class="text-sm text-slate-700">You must construct 3 bar charts:</p>
                         <ol class="list-decimal pl-5 text-sm mt-2">
-                            <li><strong>Start:</strong> All energy is in the spring ($U_s$).</li>
-                            <li><strong>Snap:</strong> Energy is split between Kinetic ($K$) and some energy lost to friction already ($W$).</li>
-                            <li><strong>Stop:</strong> All energy has been converted to Work ($W$) by non-conservative forces.</li>
+                            <li><strong>Start:</strong> All energy is in the spring <span class="eq">(<i>U</i><sub>s</sub>)</span>.</li>
+                            <li><strong>Snap:</strong> Energy is split between Kinetic <span class="eq">(<i>K</i>)</span> and some energy lost to friction already <span class="eq">(<i>W</i>)</span>.</li>
+                            <li><strong>Stop:</strong> All energy has been converted to Work <span class="eq">(<i>W</i>)</span> by non-conservative forces.</li>
                         </ol>
                     </div>
                 </div>
