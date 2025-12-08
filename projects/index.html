@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects & Engineering | AP Physics 1</title>
+    <style>
+        /* --- SAME CSS VARIABLES & RESET AS BEFORE --- */
+        :root {
+            --primary: #0077da;
+            --secondary: #004d80;
+            --accent: #ffcc00;
+            --light: #f4f4f4;
+            --dark: #333;
+            --white: #fff;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--light); color: var(--dark); line-height: 1.6; }
+
+        /* --- NAVIGATION (Consistent) --- */
+        nav {
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0; z-index: 1000; box-shadow: var(--shadow);
+        }
+        .logo { font-size: 1.5rem; font-weight: bold; letter-spacing: 1px; }
+        .nav-links { list-style: none; display: flex; gap: 20px; }
+        .nav-links a { color: var(--white); text-decoration: none; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* --- HERO HEADER (Engineering Theme) --- */
+        header {
+            /* Using a blueprint/engineering style background image */
+            background: linear-gradient(rgba(0, 77, 128, 0.9), rgba(0, 77, 128, 0.85)), url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 80px 20px;
+            text-align: center;
+        }
+        header h1 { font-size: 3rem; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        header p { font-size: 1.3rem; max-width: 800px; margin: 0 auto; opacity: 0.9; }
+
+        /* --- CONTAINER & SECTIONS --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 50px 20px; }
+        
+        .section-intro {
+            text-align: center; max-width: 900px; margin: 0 auto 50px auto;
+        }
+        .section-intro h2 {
+            color: var(--secondary); font-size: 2.2rem; margin-bottom: 20px;
+            position: relative; display: inline-block;
+        }
+        .section-intro h2::after {
+            content: ''; display: block; width: 80px; height: 4px;
+            background: var(--accent); margin: 10px auto 0;
+        }
+
+        /* --- PROJECT GRID STYLING --- */
+        .project-grid {
+            display: grid;
+            /* Slightly wider cards for projects than for units */
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            /* Decorative top border */
+            border-top: 6px solid var(--primary);
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.15);
+        }
+
+        .card-body { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
+        
+        .card-body h3 {
+            font-size: 1.8rem; color: var(--secondary); margin-bottom: 15px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        
+        .desc { margin-bottom: 25px; color: #555; font-size: 1.05rem; flex-grow: 1; }
+
+        /* Concept Tags Styling */
+        .concepts-title { font-weight: bold; font-size: 0.9rem; color: #777; margin-bottom: 10px; display: block; }
+        .tags-container { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
+        .tag {
+            background-color: rgba(0, 119, 218, 0.1);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Button styling */
+        .project-btn {
+            text-align: center;
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 15px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 0 0 10px 10px; /* Rounded bottom corners only */
+            transition: background-color 0.2s;
+        }
+        .project-btn:hover { background-color: var(--primary); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .project-grid { grid-template-columns: 1fr; } /* Single column on mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">AP Physics 1</div>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li> 
+            <li><a href="#">Syllabus</a></li>
+            <li><a href="#">Units</a></li>
+            <li><a href="#" style="color: var(--accent);">Projects</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>Engineering Challenges</h1>
+        <p>Apply your theoretical knowledge to build, test, and refine real-world prototypes. The physics is in the fabrication.</p>
+    </header>
+
+    <div class="container">
+        
+        <div class="section-intro">
+            <h2>The Design Process</h2>
+            <p>These major projects require you to move beyond plug-and-chug equations. You will follow the engineering design cycle: Ask, Imagine, Plan, Create, and Improve. Success is measured not just by the final result, but by the data collected and the iterations made along the way.</p>
+        </div>
+
+        <div class="project-grid">
+
+            <div class="project-card" style="border-top-color: #0077da;">
+                <div class="card-body">
+                    <h3>🚀 Water Rockets</h3>
+                    <p class="desc">Design and construct a pressurized water rocket recovered by a parachute system. The goal is to maximize apogee (peak height) and maximize flight duration.</p>
+                    
+                    <span class="concepts-title">PRIMARY PHYSICS CONCEPTS:</span>
+                    <div class="tags-container">
+                        <span class="tag">Kinematics (2D Motion)</span>
+                        <span class="tag">Newton's 3rd Law</span>
+                        <span class="tag">Impulse & Momentum</span>
+                        <span class="tag">Fluids (Pressure)</span>
+                    </div>
+                </div>
+                <a href="rocket-brief.html" class="project-btn">View Project Brief</a>
+            </div>
+
+            <div class="project-card" style="border-top-color: #ffcc00;">
+                <div class="card-body">
+                    <h3>🏎️ Mousetrap Racers</h3>
+                    <p class="desc">Build a vehicle powered solely by the potential energy stored in a single standard mousetrap spring. The challenge is to maximize linear distance traveled on a flat surface.</p>
+                    
+                    <span class="concepts-title">PRIMARY PHYSICS CONCEPTS:</span>
+                    <div class="tags-container">
+                        <span class="tag">Conservation of Energy</span>
+                        <span class="tag">Rotational Dynamics</span>
+                        <span class="tag">Torque</span>
+                        <span class="tag">Friction</span>
+                    </div>
+                </div>
+                <a href="../mousetrap/" class="project-btn" style="background-color: var(--accent); color: var(--dark);">Enter Mousetrap Site</a>
+            </div>
+
+            <div class="project-card" style="border-top-color: #e74c3c;">
+                <div class="card-body">
+                    <h3>🥚 The Egg Drop Landers</h3>
+                    <p class="desc">Design a lightweight landing craft that can protect a raw Grade-A egg from a substantial free fall. The goal is survival; minimizing mass and impact time are key considerations.</p>
+                    
+                    <span class="concepts-title">PRIMARY PHYSICS CONCEPTS:</span>
+                    <div class="tags-container">
+                        <span class="tag">Impulse (FΔt = mΔv)</span>
+                        <span class="tag">Momentum Change</span>
+                        <span class="tag">Free Fall Kinematics</span>
+                        <span class="tag">Air Resistance (Drag)</span>
+                    </div>
+                </div>
+                <a href="egg-drop.html" class="project-btn">View Project Brief</a>
+            </div>
+
+             <div class="project-card" style="border-top-color: #27ae60;">
+                <div class="card-body">
+                    <h3>⚖️ Hanging Mobiles</h3>
+                    <p class="desc">Create a multi-tiered artistic mobile that maintains perfect static equilibrium. You must calculate the precise mass and lever arm distances required to balance every tier simultaneously.</p>
+                    
+                    <span class="concepts-title">PRIMARY PHYSICS CONCEPTS:</span>
+                    <div class="tags-container">
+                        <span class="tag">Static Equilibrium</span>
+                        <span class="tag">Torque Calculations</span>
+                        <span class="tag">Center of Mass</span>
+                        <span class="tag">Net Force = 0</span>
+                    </div>
+                </div>
+                 <a href="mobile-project.html" class="project-btn">View Project Brief</a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
