@@ -3,125 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AP Physics Mousetrap Racer Hub</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Mousetrap Racer Hub | AP Physics 1</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Chosen Palette: Professional Slate & Teal (AP Style) -->
-    <!-- Application Structure Plan: 
-         - Target Audience: AP Physics Students.
-         - Key Changes: 
-           - Higher distance goals (14m/18m).
-           - "Physics Hints" replaced with "Derivation Guides" (no free formulas).
-           - Added requirements for Energy Bar Charts (LOL Diagrams).
-           - Rubric adjusted to 150pts with emphasis on Derivations and Energy Analysis.
-           - FIXED: Equations now use HTML entities/tags instead of raw LaTeX for proper browser rendering.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
+        /* --- GLOBAL VARIABLES (Matching your site theme) --- */
+        :root {
+            --primary: #0077da;
+            --secondary: #004d80;
+            --accent: #ffcc00;
+            --light: #f4f4f4;
+            --dark: #333;
+            --white: #fff;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --danger: #e74c3c;
+            --success: #27ae60;
         }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--light); color: var(--dark); line-height: 1.6; }
+
+        /* --- TOP NAVIGATION --- */
+        nav {
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0; z-index: 1000; box-shadow: var(--shadow);
+        }
+        .logo { font-size: 1.5rem; font-weight: bold; letter-spacing: 1px; }
+        .back-btn {
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 8px 16px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: transform 0.2s;
+        }
+        .back-btn:hover { transform: scale(1.05); }
+
+        /* --- HERO HEADER --- */
+        header {
+            background: linear-gradient(rgba(0, 77, 128, 0.9), rgba(0, 77, 128, 0.9)), url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+        }
+        header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+
+        /* --- LAYOUT CONTAINER --- */
+        .container { max-width: 1100px; margin: 0 auto; padding: 30px 20px; }
+
+        /* --- INTERNAL TAB NAVIGATION --- */
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: var(--white);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
         }
         .nav-link {
-            display: block;
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            font-weight: 500;
-            color: #334155;
-            transition: all 0.2s;
+            padding: 10px 20px;
+            border: 2px solid transparent;
+            border-radius: 5px;
             cursor: pointer;
+            font-weight: 600;
+            color: var(--secondary);
+            transition: all 0.3s;
         }
-        .nav-link:hover {
-            background-color: #e2e8f0;
-            color: #0f172a;
-        }
+        .nav-link:hover { background-color: #eee; }
         .nav-link.active {
-            background-color: #0d9488; /* Teal-600 */
-            color: #ffffff;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background-color: var(--secondary);
+            color: var(--white);
+            border-color: var(--secondary);
         }
-        .page-content {
-            animation: fadeIn 0.5s ease-in-out;
+
+        /* --- CONTENT SECTIONS --- */
+        .page-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .page-content.active { display: block; } /* Replaces Tailwind 'hidden' logic */
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        h2 { color: var(--secondary); border-bottom: 3px solid var(--accent); display: inline-block; margin: 30px 0 15px 0; padding-bottom: 5px; }
+        h3 { color: var(--primary); margin: 20px 0 10px 0; }
+        ul, ol { margin-left: 20px; margin-bottom: 15px; }
+        li { margin-bottom: 8px; }
+
+        /* --- CARD STYLES --- */
+        .card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary);
+            margin-bottom: 25px;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .card.warning { border-left-color: var(--danger); }
+        .card.success { border-left-color: var(--success); }
+
+        /* --- FORMS & INPUTS --- */
+        .form-row { display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap; }
+        .form-group { flex: 1; min-width: 200px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 0.9rem; }
+        input, select {
+            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;
         }
-        /* Sample Report Styles */
+        button.action-btn {
+            background-color: var(--secondary); color: white; border: none; padding: 10px 20px;
+            border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 1rem; transition: background 0.2s;
+        }
+        button.action-btn:hover { background-color: var(--primary); }
+        button.reset-btn { background-color: #777; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
+
+        /* --- SAMPLE PAPER STYLE --- */
         .sample-paper {
+            background: white;
+            padding: 50px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.15);
+            max-width: 850px;
+            margin: 0 auto;
             font-family: 'Times New Roman', Times, serif;
-            line-height: 1.6;
+            color: black;
+            border: 1px solid #ddd;
         }
-        /* Energy Bar Styles */
+        .sample-paper h2, .sample-paper h3 { font-family: 'Times New Roman', Times, serif; color: black; border-bottom: 1px solid black; }
+        .eq-block { 
+            background: #f9f9f9; padding: 10px; border: 1px solid #ddd; display: block; 
+            font-family: 'Times New Roman', serif; font-style: italic; margin: 10px 0; text-align: center;
+        }
+        
+        /* --- ENERGY BARS CSS --- */
+        .energy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; text-align: center; }
         .energy-bar-container {
-            display: flex;
-            align-items: flex-end;
-            height: 100px;
-            gap: 10px;
-            border-bottom: 2px solid #333;
-            padding-bottom: 5px;
+            display: flex; align-items: flex-end; justify-content: center;
+            height: 120px; gap: 8px; border-bottom: 2px solid #333; padding-bottom: 5px; margin-bottom: 10px;
         }
-        .energy-bar {
-            width: 40px;
-            background-color: #0d9488;
-            text-align: center;
-            color: white;
-            font-size: 10px;
-            transition: height 0.5s;
-        }
-        /* Equation formatting */
-        .eq {
-            font-family: 'Times New Roman', Times, serif;
-            font-style: italic;
-        }
-        .eq-block {
-            font-family: 'Times New Roman', Times, serif;
-            background-color: white;
-            padding: 0.5rem;
-            border-radius: 0.25rem;
-            display: block;
-            margin-bottom: 0.5rem;
+        .energy-bar { width: 30px; color: white; font-size: 10px; text-align: center; transition: height 0.5s; display: flex; align-items: flex-end; justify-content: center; }
+        .bar-blue { background-color: #3b82f6; }
+        .bar-red { background-color: #ef4444; }
+        .bar-grey { background-color: #64748b; }
+
+        /* --- TABLE STYLES --- */
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: var(--secondary); color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        
+        /* --- CHART --- */
+        .chart-container { position: relative; height: 350px; width: 100%; max-width: 700px; margin: 0 auto; }
+
+        /* Utility for math font */
+        .eq { font-family: 'Times New Roman', serif; font-style: italic; }
+
+        @media (max-width: 768px) {
+            .tabs-container { flex-direction: column; }
+            .nav-link { text-align: center; }
+            .form-row { flex-direction: column; }
+            .sample-paper { padding: 20px; }
         }
     </style>
 </head>
-<body class="bg-slate-50 font-sans text-slate-800">
-    <div class="flex h-screen bg-white">
+<body>
+
+    <nav>
+        <div class="logo">AP Physics Hub</div>
+        <a href="../index.html" class="back-btn">&#8592; Back to Projects</a>
+    </nav>
+
+    <header>
+        <h1>AP Mousetrap Racer Challenge</h1>
+        <p>Advanced mechanics, energy analysis, and engineering design.</p>
+    </header>
+
+    <div class="container">
+
+        <div class="tabs-container">
+            <div id="nav-overview" class="nav-link active" onclick="switchTab('page-overview', this)">Overview</div>
+            <div id="nav-car" class="nav-link" onclick="switchTab('page-car', this)">AP Car Rules</div>
+            <div id="nav-report" class="nav-link" onclick="switchTab('page-report', this)">Report Guidelines</div>
+            <div id="nav-sample" class="nav-link" onclick="switchTab('page-sample', this)">Sample Report</div>
+            <div id="nav-physics" class="nav-link" onclick="switchTab('page-physics', this)">Derivations & Energy</div>
+            <div id="nav-rubric" class="nav-link" onclick="switchTab('page-rubric', this)">Grading Rubric</div>
+        </div>
         
-        <!-- Sidebar Navigation -->
-        <nav class="w-64 h-full bg-slate-100 p-5 shadow-lg flex flex-col gap-4 overflow-y-auto border-r border-slate-200">
-            <h1 class="text-2xl font-bold text-teal-700">AP Physics Hub</h1>
-            <div class="flex flex-col gap-2">
-                <a id="nav-overview" class="nav-link active" data-target="page-overview">Overview</a>
-                <a id="nav-car" class="nav-link" data-target="page-car">AP Car Rules</a>
-                <a id="nav-report" class="nav-link" data-target="page-report">AP Report Guidelines</a>
-                <a id="nav-sample" class="nav-link" data-target="page-sample">Sample Report</a>
-                <a id="nav-physics" class="nav-link" data-target="page-physics">Derivations & Energy</a>
-                <a id="nav-rubric" class="nav-link" data-target="page-rubric">AP Grading Rubric</a>
-            </div>
-        </nav>
-        
-        <!-- Main Content Area -->
-        <main class="flex-1 h-full overflow-y-auto p-8 md:p-12">
+        <main>
             
-            <!-- OVERVIEW PAGE -->
-            <div id="page-overview" class="page-content prose max-w-none">
-                <h1 class="text-teal-700">🚀 AP Mousetrap Racer Challenge</h1>
+            <div id="page-overview" class="page-content active">
+                <div class="card">
+                    <h2>🚀 The Challenge</h2>
+                    <p class="text-xl">Welcome to the Advanced Physics Mousetrap Racer project. This challenge requires you to not only build a high-performance vehicle but also to rigorously analyze its motion using <strong>Work, Energy, and Newton's Laws</strong>.</p>
+                </div>
                 
-                <p class="text-xl">Welcome to the Advanced Physics Mousetrap Racer project. This challenge requires you to not only build a high-performance vehicle but also to rigorously analyze its motion using <strong>Work, Energy, and Newton's Laws</strong>.</p>
-                
-                <div class="bg-teal-50 p-6 rounded-lg border-l-4 border-teal-500 not-prose my-6">
-                    <h3 class="text-lg font-bold text-teal-800">AP Level Expectations</h3>
-                    <ul class="mt-2 space-y-2 list-disc pl-5">
+                <div class="card warning">
+                    <h3>AP Level Expectations</h3>
+                    <ul>
                         <li><strong>Higher Stakes:</strong> Distance goals are set to <strong>14m</strong> and <strong>18m</strong>.</li>
                         <li><strong>Derivations:</strong> You must derive your equations from fundamental principles. No "plug-and-chug" formulas will be provided.</li>
                         <li><strong>Energy Analysis:</strong> Reports must include quantitative Energy Bar Charts (LOL Diagrams) tracking the loss of energy to friction.</li>
@@ -129,200 +214,193 @@
                 </div>
             </div>
 
-            <!-- CAR RULES PAGE -->
-            <div id="page-car" class="page-content hidden prose max-w-none">
-                <h1 class="text-teal-700">The Car: AP Specifications</h1>
-                
-                <h2 class="text-red-700">AP Distance Goals</h2>
-                <ul class="list-disc pl-5">
-                    <li><strong>Groups of 1-2 students:</strong> Minimum distance of <strong>14.0 meters</strong>.</li>
-                    <li><strong>Groups of 3 students:</strong> Minimum distance of <strong>18.0 meters</strong>.</li>
-                </ul>
-                
-                <h2>Construction Rules</h2>
-                <ol class="list-decimal pl-5">
-                    <li><strong>Power:</strong> The car must be powered by <strong>1 or 2 standard mousetraps</strong> (provided). No batteries, elastic bands, or CO2.</li>
-                    <li><strong>Materials:</strong> Completely homemade. <strong>NO</strong> pre-made kits, Legos, K'nex, Erector sets.</li>
-                    <li><strong>Wheels:</strong> At least <strong>3 wheels</strong> required.</li>
-                    <li><strong>Launch:</strong> Start from stationary. No pushing.</li>
-                </ol>
-            </div>
-
-            <!-- REPORT GUIDELINES PAGE -->
-            <div id="page-report" class="page-content hidden prose max-w-none">
-                <h1 class="text-teal-700">AP Report Requirements</h1>
-                <p>Your lab report must follow standard scientific formatting and include the following:</p>
-
-                <ol class="list-decimal pl-5 space-y-4">
-                    <li><strong>Title Page:</strong> Student Name, Partner Name, Date, Title.</li>
-                    <li><strong>Objective (3-5 sentences):</strong> Clear statement of engineering and physics goals.</li>
-                    <li><strong>Procedure & Diagrams:</strong> Detailed material list and schematic drawings (Top/Side views) with metric measurements.</li>
-                    <li><strong>Data Tables:</strong> 
-                        <ul class="list-disc pl-5 mt-2">
-                            <li><strong>Table 1 (Raw Data):</strong> Time/Distance to Snap, Time/Distance to Stop.</li>
-                            <li><strong>Table 2 (Calculated):</strong> Acceleration (start), Velocity (snap), Kinetic Energy (snap), Work done by Friction, Coefficient of Friction (<span class="eq">&mu;</span>).</li>
-                        </ul>
-                    </li>
-                    <li><strong>Derivations & Calculations:</strong> 
-                        <ul class="list-disc pl-5 mt-2">
-                            <li><strong>Derivations:</strong> Start from fundamental laws (e.g., <span class="eq"><i>W</i> = &Delta;<i>E</i></span>, <span class="eq">&Sigma;<i>F</i> = <i>ma</i></span>) to derive the algebraic expressions for your calculated variables.</li>
-                            <li><strong>Samples:</strong> Show one calculation for each equation using your data.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Energy Analysis (Charts):</strong> 
-                        <br>Include <strong>Energy Bar Charts (LOL Diagrams)</strong> showing the system at:
-                        <ul class="list-disc pl-5">
-                            <li>State A: Start (<span class="eq"><i>t</i>=0</span>)</li>
-                            <li>State B: Snap (<span class="eq"><i>t</i><sub>snap</sub></span>)</li>
-                            <li>State C: Stop (<span class="eq"><i>t</i><sub>stop</sub></span>)</li>
-                        </ul>
-                        <br>Explicitly show the Work done by friction (<span class="eq"><i>W</i><sub>nc</sub></span>) removing energy from the system.
-                    </li>
-                    <li><strong>Physics Theory (2 Paragraphs):</strong> 
-                        <br>Discuss the physics concepts (Conservation of Energy, Rotational Inertia, Friction) applied to your design.</li>
-                    <li><strong>Results (5-7 sentences):</strong> 
-                        <br>Outcome, averages, error analysis, and improvements.</li>
-                    <li><strong>Sources:</strong> 
-                        <br>Standard citation format.</li>
-                </ol>
-
-                <hr class="my-8">
-                
-                <div class="not-prose">
-                    <h2 class="text-2xl font-bold mb-4 text-teal-700">AP Data Visualizer</h2>
-                    <p class="mb-4 text-slate-700">Visualize your trial consistency.</p>
+            <div id="page-car" class="page-content">
+                <div class="card">
+                    <h2>The Car: AP Specifications</h2>
                     
-                    <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
-                        <div class="chart-container mb-6">
-                            <canvas id="trialChart"></canvas>
-                        </div>
-                        
-                        <form id="dataForm" class="flex flex-col md:flex-row gap-4 items-end">
-                            <div class="flex-1 w-full">
-                                <label for="trialDistance" class="block text-sm font-medium text-slate-700">Total Distance (m)</label>
-                                <input type="number" id="trialDistance" name="trialDistance" step="0.01" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm" placeholder="e.g., 14.2">
-                            </div>
-                            <button type="submit" class="w-full md:w-auto px-4 py-2 bg-teal-600 text-white font-medium rounded-md shadow-sm hover:bg-teal-700">Add Trial</button>
-                            <button type="button" id="resetChartBtn" class="w-full md:w-auto px-4 py-2 bg-slate-500 text-white font-medium rounded-md shadow-sm hover:bg-slate-600">Reset</button>
-                        </form>
-                    </div>
+                    <h3 style="color: var(--danger);">AP Distance Goals</h3>
+                    <ul>
+                        <li><strong>Groups of 1-2 students:</strong> Minimum distance of <strong>14.0 meters</strong>.</li>
+                        <li><strong>Groups of 3 students:</strong> Minimum distance of <strong>18.0 meters</strong>.</li>
+                    </ul>
+                    
+                    <h3>Construction Rules</h3>
+                    <ol>
+                        <li><strong>Power:</strong> The car must be powered by <strong>1 or 2 standard mousetraps</strong> (provided). No batteries, elastic bands, or CO2.</li>
+                        <li><strong>Materials:</strong> Completely homemade. <strong>NO</strong> pre-made kits, Legos, K'nex, Erector sets.</li>
+                        <li><strong>Wheels:</strong> At least <strong>3 wheels</strong> required.</li>
+                        <li><strong>Launch:</strong> Start from stationary. No pushing.</li>
+                    </ol>
                 </div>
             </div>
 
-            <!-- SAMPLE REPORT PAGE -->
-            <div id="page-sample" class="page-content hidden">
-                <h1 class="text-3xl font-bold text-teal-700 mb-6">AP Sample Report Reference</h1>
-                <div class="bg-white shadow-xl border border-slate-200 p-8 max-w-4xl mx-auto sample-paper text-slate-900">
+            <div id="page-report" class="page-content">
+                <div class="card">
+                    <h2>AP Report Requirements</h2>
+                    <p>Your lab report must follow standard scientific formatting and include the following:</p>
+
+                    <ol>
+                        <li><strong>Title Page:</strong> Student Name, Partner Name, Date, Title.</li>
+                        <li><strong>Objective (3-5 sentences):</strong> Clear statement of engineering and physics goals.</li>
+                        <li><strong>Procedure & Diagrams:</strong> Detailed material list and schematic drawings (Top/Side views) with metric measurements.</li>
+                        <li><strong>Data Tables:</strong> 
+                            <ul>
+                                <li><strong>Table 1 (Raw Data):</strong> Time/Distance to Snap, Time/Distance to Stop.</li>
+                                <li><strong>Table 2 (Calculated):</strong> Acceleration (start), Velocity (snap), Kinetic Energy (snap), Work done by Friction, Coefficient of Friction (<span class="eq">&mu;</span>).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Derivations & Calculations:</strong> 
+                            <ul>
+                                <li><strong>Derivations:</strong> Start from fundamental laws (e.g., <span class="eq"><i>W</i> = &Delta;<i>E</i></span>, <span class="eq">&Sigma;<i>F</i> = <i>ma</i></span>) to derive the algebraic expressions for your calculated variables.</li>
+                                <li><strong>Samples:</strong> Show one calculation for each equation using your data.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Energy Analysis (Charts):</strong> 
+                            <br>Include <strong>Energy Bar Charts (LOL Diagrams)</strong> showing the system at:
+                            <ul>
+                                <li>State A: Start (<span class="eq"><i>t</i>=0</span>)</li>
+                                <li>State B: Snap (<span class="eq"><i>t</i><sub>snap</sub></span>)</li>
+                                <li>State C: Stop (<span class="eq"><i>t</i><sub>stop</sub></span>)</li>
+                            </ul>
+                            <br>Explicitly show the Work done by friction (<span class="eq"><i>W</i><sub>nc</sub></span>) removing energy from the system.
+                        </li>
+                        <li><strong>Physics Theory (2 Paragraphs):</strong> 
+                            <br>Discuss the physics concepts (Conservation of Energy, Rotational Inertia, Friction) applied to your design.</li>
+                        <li><strong>Results (5-7 sentences):</strong> 
+                            <br>Outcome, averages, error analysis, and improvements.</li>
+                        <li><strong>Sources:</strong> 
+                            <br>Standard citation format.</li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3>AP Data Visualizer</h3>
+                    <p>Visualize your trial consistency.</p>
                     
-                    <div class="text-center border-b-2 border-slate-100 pb-8 mb-8">
-                        <h2 class="text-4xl font-bold mb-4">AP Physics: Mousetrap Dynamics</h2>
-                        <p class="text-xl mb-8">AP Physics 1</p>
+                    <div class="chart-container">
+                        <canvas id="trialChart"></canvas>
+                    </div>
+                    
+                    <form id="dataForm" class="form-row" style="margin-top: 20px;">
+                        <div class="form-group">
+                            <label for="trialDistance">Total Distance (m)</label>
+                            <input type="number" id="trialDistance" name="trialDistance" step="0.01" placeholder="e.g., 14.2">
+                        </div>
+                        <button type="submit" class="action-btn">Add Trial</button>
+                        <button type="button" id="resetChartBtn" class="reset-btn">Reset</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="page-sample" class="page-content">
+                <h2 style="text-align: center; display: block; border: none;">Reference Material</h2>
+                <div class="sample-paper">
+                    
+                    <div style="text-align: center; border-bottom: 2px solid #ccc; padding-bottom: 20px; margin-bottom: 30px;">
+                        <h2 style="border: none;">AP Physics: Mousetrap Dynamics</h2>
                         <p><strong>Student:</strong> Alex Newton | <strong>Partner:</strong> Marie Curie</p>
                     </div>
 
-                    <div class="space-y-6">
-                        <section>
-                            <h3 class="text-xl font-bold border-b border-black mb-2">1. Objective</h3>
-                            <p>The objective was to maximize the distance of a mousetrap-powered vehicle by optimizing the conversion of elastic potential energy <span class="eq">(<i>U</i><sub>s</sub>)</span> into translational kinetic energy <span class="eq">(<i>K</i><sub>t</sub>)</span>. The goal was 14.0m; we achieved 15.2m.</p>
-                        </section>
+                    <div style="line-height: 1.8;">
+                        <h3>1. Objective</h3>
+                        <p>The objective was to maximize the distance of a mousetrap-powered vehicle by optimizing the conversion of elastic potential energy <span class="eq">(<i>U</i><sub>s</sub>)</span> into translational kinetic energy <span class="eq">(<i>K</i><sub>t</sub>)</span>. The goal was 14.0m; we achieved 15.2m.</p>
 
-                        <section>
-                            <h3 class="text-xl font-bold border-b border-black mb-2">3. Derivations & Calculations</h3>
-                            <div class="bg-slate-50 p-4 border border-slate-300 mb-4">
-                                <p class="font-bold italic text-teal-700 mb-2">Sample Derivation: Acceleration during Coasting</p>
-                                <p>Using the Work-Energy Theorem for the coasting phase (Snap to Stop):</p>
-                                <code class="eq-block"><i>W</i><sub>net</sub> = &Delta;<i>K</i></code>
-                                <code class="eq-block"><i>F</i><sub>f</sub> &middot; <i>d</i> = 0 - &frac12;<i>mv</i><sup>2</sup></code>
-                                <p>Using Newton's Second Law (<span class="eq">&Sigma;<i>F</i> = <i>ma</i></span>):</p>
-                                <code class="eq-block">-<i>F</i><sub>f</sub> = <i>ma</i> &nbsp;&rarr;&nbsp; <i>a</i> = (-<i>F</i><sub>f</sub>) / <i>m</i></code>
+                        <h3>3. Derivations & Calculations</h3>
+                        <div style="background: #f4f4f4; padding: 15px; border: 1px solid #ddd; margin: 15px 0;">
+                            <p style="font-weight: bold; color: var(--secondary);">Sample Derivation: Acceleration during Coasting</p>
+                            <p>Using the Work-Energy Theorem for the coasting phase (Snap to Stop):</p>
+                            <code class="eq-block"><i>W</i><sub>net</sub> = &Delta;<i>K</i></code>
+                            <code class="eq-block"><i>F</i><sub>f</sub> &middot; <i>d</i> = 0 - &frac12;<i>mv</i><sup>2</sup></code>
+                            <p>Using Newton's Second Law (<span class="eq">&Sigma;<i>F</i> = <i>ma</i></span>):</p>
+                            <code class="eq-block">-<i>F</i><sub>f</sub> = <i>ma</i> &nbsp;&rarr;&nbsp; <i>a</i> = (-<i>F</i><sub>f</sub>) / <i>m</i></code>
+                        </div>
+                        
+                        <h4>Data Table 2: Calculated Variables</h4>
+                        <table>
+                            <tr>
+                                <th>Accel (Start)</th>
+                                <th>Velocity (Snap)</th>
+                                <th>Kinetic Energy</th>
+                                <th>Work (<span class="eq"><i>W</i><sub>nc</sub></span>)</th>
+                            </tr>
+                            <tr>
+                                <td>1.1 m/s²</td>
+                                <td>1.65 m/s</td>
+                                <td>0.25 J</td>
+                                <td>-0.25 J</td>
+                            </tr>
+                        </table>
+
+                        <h3>4. Energy Analysis (Energy Charts)</h3>
+                        <p>The following charts illustrate the flow of energy. Note that at the "Stop" phase, all mechanical energy has been dissipated as Work done by friction <span class="eq">(<i>W</i><sub>f</sub>)</span>.</p>
+                        
+                        <div class="energy-grid">
+                            <div>
+                                <p style="font-weight: bold;">Start (t=0)</p>
+                                <div class="energy-bar-container">
+                                    <div class="energy-bar bar-blue" style="height: 100%;">PE</div>
+                                    <div class="energy-bar bar-red" style="height: 0%;">KE</div>
+                                </div>
+                                <p style="font-size: 0.8rem;">100% Potential</p>
                             </div>
                             
-                            <h4 class="font-bold mt-4">Data Table 2: Calculated Variables</h4>
-                            <div class="overflow-x-auto">
-                                <table class="w-full border-collapse border border-black text-sm text-center mb-4">
-                                    <tr class="bg-slate-200">
-                                        <th class="border border-black p-1">Accel (Start)</th>
-                                        <th class="border border-black p-1">Velocity (Snap)</th>
-                                        <th class="border border-black p-1">Kinetic Energy</th>
-                                        <th class="border border-black p-1">Work (<span class="eq"><i>W</i><sub>nc</sub></span>)</th>
-                                    </tr>
-                                    <tr>
-                                        <td class="border border-black p-1">1.1 m/s²</td>
-                                        <td class="border border-black p-1">1.65 m/s</td>
-                                        <td class="border border-black p-1">0.25 J</td>
-                                        <td class="border border-black p-1">-0.25 J</td>
-                                    </tr>
-                                </table>
+                            <div>
+                                <p style="font-weight: bold;">Snap (t=snap)</p>
+                                <div class="energy-bar-container">
+                                    <div class="energy-bar bar-blue" style="height: 0%;">PE</div>
+                                    <div class="energy-bar bar-red" style="height: 80%;">KE</div>
+                                    <div class="energy-bar bar-grey" style="height: 20%;">W</div>
+                                </div>
+                                <p style="font-size: 0.8rem;">Max Kinetic</p>
                             </div>
-                        </section>
 
-                        <section>
-                            <h3 class="text-xl font-bold border-b border-black mb-2">4. Energy Analysis (Energy Charts)</h3>
-                            <p class="mb-2">The following charts illustrate the flow of energy. Note that at the "Stop" phase, all mechanical energy has been dissipated as Work done by friction <span class="eq">(<i>W</i><sub>f</sub>)</span>.</p>
-                            
-                            <div class="grid grid-cols-3 gap-4 mb-4 text-center">
-                                <div>
-                                    <p class="font-bold text-sm">Start (t=0)</p>
-                                    <div class="energy-bar-container justify-center">
-                                        <div class="energy-bar" style="height: 100%; background-color: #3b82f6;">PE</div>
-                                        <div class="energy-bar" style="height: 0%;">KE</div>
-                                    </div>
-                                    <p class="text-xs">100% Potential</p>
+                            <div>
+                                <p style="font-weight: bold;">Stop (t=end)</p>
+                                <div class="energy-bar-container">
+                                    <div class="energy-bar bar-blue" style="height: 0%;">PE</div>
+                                    <div class="energy-bar bar-red" style="height: 0%;">KE</div>
+                                    <div class="energy-bar bar-grey" style="height: 100%;">W</div>
                                 </div>
-                                <div>
-                                    <p class="font-bold text-sm">Snap (t=snap)</p>
-                                    <div class="energy-bar-container justify-center">
-                                        <div class="energy-bar" style="height: 0%;">PE</div>
-                                        <div class="energy-bar" style="height: 80%; background-color: #ef4444;">KE</div>
-                                        <div class="energy-bar" style="height: 20%; background-color: #64748b;">W</div>
-                                    </div>
-                                    <p class="text-xs">Max Kinetic</p>
-                                </div>
-                                <div>
-                                    <p class="font-bold text-sm">Stop (t=end)</p>
-                                    <div class="energy-bar-container justify-center">
-                                        <div class="energy-bar" style="height: 0%;">PE</div>
-                                        <div class="energy-bar" style="height: 0%;">KE</div>
-                                        <div class="energy-bar" style="height: 100%; background-color: #64748b;">W</div>
-                                    </div>
-                                    <p class="text-xs">Energy Dissipated</p>
-                                </div>
+                                <p style="font-size: 0.8rem;">Energy Dissipated</p>
                             </div>
-                        </section>
+                        </div>
+
                     </div>
                 </div>
             </div>
 
-            <!-- PHYSICS & MATH PAGE -->
-            <div id="page-physics" class="page-content hidden prose max-w-none">
-                <h1 class="text-teal-700">Derivation Prompts</h1>
-                <p>For AP Physics, you must derive your own equations. Use these guiding questions.</p>
-                
-                <div class="grid grid-cols-1 gap-6">
-                    <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-lg not-prose">
-                        <h3 class="text-lg font-bold text-indigo-800">1. Kinematics (The Snap)</h3>
-                        <p class="text-sm text-slate-700 mb-2">Assume constant acceleration during the snap phase.</p>
-                        <ul class="list-disc pl-5 text-sm">
+            <div id="page-physics" class="page-content">
+                <div class="card">
+                    <h2>Derivation Prompts</h2>
+                    <p>For AP Physics, you must derive your own equations. Use these guiding questions.</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    
+                    <div class="card" style="border-left-color: #3b82f6;">
+                        <h3>1. Kinematics (The Snap)</h3>
+                        <p style="font-size: 0.9rem; margin-bottom: 10px;">Assume constant acceleration during the snap phase.</p>
+                        <ul>
                             <li>You know initial velocity <span class="eq">(<i>v</i><sub>0</sub> = 0)</span>, distance <span class="eq">(<i>d</i><sub>1</sub>)</span>, and time <span class="eq">(<i>t</i><sub>1</sub>)</span>.</li>
                             <li><strong>Derive:</strong> Which Kinematic equation allows you to solve for acceleration <span class="eq">(<i>a</i>)</span> using only these variables?</li>
                             <li><strong>Derive:</strong> Once you have <span class="eq"><i>a</i></span>, how do you find <span class="eq"><i>v</i><sub>f</sub></span> (velocity at snap)?</li>
                         </ul>
                     </div>
 
-                    <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-lg not-prose">
-                        <h3 class="text-lg font-bold text-purple-800">2. Work-Energy Theorem</h3>
-                        <p class="text-sm text-slate-700 mb-2">Analyze the coasting phase (from Snap to Stop).</p>
-                        <ul class="list-disc pl-5 text-sm">
+                    <div class="card" style="border-left-color: #8e44ad;">
+                        <h3>2. Work-Energy Theorem</h3>
+                        <p style="font-size: 0.9rem; margin-bottom: 10px;">Analyze the coasting phase (from Snap to Stop).</p>
+                        <ul>
                             <li>The car starts with <span class="eq"><i>KE</i><sub>max</sub></span> and ends with 0.</li>
                             <li><strong>Derive:</strong> Use <span class="eq"><i>W</i><sub>nc</sub> = &Delta;<i>E</i></span> to find the Work done by friction.</li>
                             <li><strong>Calculate:</strong> What is the average force of friction <span class="eq">(<i>F</i><sub>f</sub>)</span>?</li>
                         </ul>
                     </div>
 
-                    <div class="bg-orange-50 border-l-4 border-orange-500 p-4 rounded-r-lg not-prose">
-                        <h3 class="text-lg font-bold text-orange-800">3. Energy Charts (LOL Diagrams)</h3>
-                        <p class="text-sm text-slate-700">You must construct 3 bar charts:</p>
-                        <ol class="list-decimal pl-5 text-sm mt-2">
+                    <div class="card" style="border-left-color: #e67e22;">
+                        <h3>3. Energy Charts (LOL Diagrams)</h3>
+                        <p>You must construct 3 bar charts:</p>
+                        <ol>
                             <li><strong>Start:</strong> All energy is in the spring <span class="eq">(<i>U</i><sub>s</sub>)</span>.</li>
                             <li><strong>Snap:</strong> Energy is split between Kinetic <span class="eq">(<i>K</i>)</span> and some energy lost to friction already <span class="eq">(<i>W</i>)</span>.</li>
                             <li><strong>Stop:</strong> All energy has been converted to Work <span class="eq">(<i>W</i>)</span> by non-conservative forces.</li>
@@ -331,146 +409,131 @@
                 </div>
             </div>
 
-            <!-- RUBRIC PAGE -->
-            <div id="page-rubric" class="page-content hidden prose max-w-none">
-                <h1 class="text-teal-700">AP Grading Rubric</h1>
+            <div id="page-rubric" class="page-content">
                 
-                <div class="not-prose mb-8">
-                    <h2 class="text-2xl font-bold mb-4 text-slate-700">AP Distance Calculator</h2>
-                    <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
-                        <p class="mb-4 text-sm text-slate-600">Calculate AP Distance Score (Max 50 pts).</p>
-                        <form id="gradeCalculator" class="flex flex-col md:flex-row gap-4 items-end">
-                            <div class="flex-1 w-full">
-                                <label for="groupSize" class="block text-sm font-medium text-slate-700">Group Size</label>
-                                <select id="groupSize" name="groupSize" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm">
-                                    <option value="1-2">1-2 Students (14m Goal)</option>
-                                    <option value="3">3 Students (18m Goal)</option>
-                                </select>
-                            </div>
-                            <div class="flex-1 w-full">
-                                <label for="carDistance" class="block text-sm font-medium text-slate-700">Distance (m)</label>
-                                <input type="number" id="carDistance" name="carDistance" step="0.01" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm" placeholder="e.g., 14.5">
-                            </div>
-                            <button type="submit" class="w-full md:w-auto px-4 py-2 bg-teal-600 text-white font-medium rounded-md shadow-sm hover:bg-teal-700">Calculate</button>
-                        </form>
-                        <div id="gradeResult" class="mt-4 text-xl font-bold text-teal-700 h-8"></div>
-                    </div>
+                <div class="card">
+                    <h2>AP Distance Calculator</h2>
+                    <p style="margin-bottom: 20px;">Calculate AP Distance Score (Max 50 pts).</p>
+                    <form id="gradeCalculator" class="form-row">
+                        <div class="form-group">
+                            <label for="groupSize">Group Size</label>
+                            <select id="groupSize" name="groupSize">
+                                <option value="1-2">1-2 Students (14m Goal)</option>
+                                <option value="3">3 Students (18m Goal)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="carDistance">Distance (m)</label>
+                            <input type="number" id="carDistance" name="carDistance" step="0.01" placeholder="e.g., 14.5">
+                        </div>
+                        <button type="submit" class="action-btn">Calculate</button>
+                    </form>
+                    <div id="gradeResult" style="margin-top: 15px; font-weight: bold; font-size: 1.2rem; color: var(--primary);"></div>
                 </div>
 
-                <h2>AP Rubric (150 Points Total)</h2>
-                <div class="overflow-x-auto not-prose">
-                    <table class="min-w-full divide-y divide-slate-300 border border-slate-300 bg-white">
-                        <thead class="bg-slate-100">
+                <div class="card">
+                    <h2>AP Rubric (150 Points Total)</h2>
+                    <table>
+                        <thead>
                             <tr>
-                                <th class="px-4 py-3 text-left text-sm font-bold text-slate-700 border-r">Category</th>
-                                <th class="px-4 py-3 text-center text-sm font-bold text-slate-700 border-r w-24">Points</th>
-                                <th class="px-4 py-3 text-left text-sm font-bold text-slate-700">AP Criteria</th>
+                                <th>Category</th>
+                                <th style="text-align: center;">Points</th>
+                                <th>AP Criteria</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-200">
-                            <!-- On Time -->
+                        <tbody>
                             <tr>
-                                <td class="px-4 py-2 font-medium border-r">On Time</td>
-                                <td class="px-4 py-2 text-center font-bold border-r">0</td>
-                                <td class="px-4 py-2 text-sm">Submitted by deadline. <span class="text-red-600">(-5 pts/day late)</span></td>
+                                <td>On Time</td>
+                                <td style="text-align: center; font-weight: bold;">0</td>
+                                <td>Submitted by deadline. <span style="color: var(--danger);">(-5 pts/day late)</span></td>
                             </tr>
-                            <!-- In Class Work 1 -->
-                            <tr class="bg-green-50">
-                                <td class="px-4 py-2 font-medium border-r">In-Class (Day 1)</td>
-                                <td class="px-4 py-2 text-center font-bold text-green-700 border-r">10</td>
-                                <td class="px-4 py-2 text-sm">Effective use of build time.</td>
+                            <tr style="background-color: rgba(39, 174, 96, 0.1);">
+                                <td>In-Class (Day 1)</td>
+                                <td style="text-align: center; font-weight: bold; color: var(--success);">10</td>
+                                <td>Effective use of build time.</td>
                             </tr>
-                            <!-- In Class Work 2 -->
-                            <tr class="bg-green-50">
-                                <td class="px-4 py-2 font-medium border-r">In-Class (Day 2)</td>
-                                <td class="px-4 py-2 text-center font-bold text-green-700 border-r">10</td>
-                                <td class="px-4 py-2 text-sm">Effective use of build time.</td>
+                            <tr style="background-color: rgba(39, 174, 96, 0.1);">
+                                <td>In-Class (Day 2)</td>
+                                <td style="text-align: center; font-weight: bold; color: var(--success);">10</td>
+                                <td>Effective use of build time.</td>
                             </tr>
-                            <!-- Distance -->
-                            <tr class="bg-teal-50">
-                                <td class="px-4 py-2 font-medium border-r">Distance</td>
-                                <td class="px-4 py-2 text-center font-bold text-teal-700 border-r">50</td>
-                                <td class="px-4 py-2 text-sm">14m (groups of 1-2) or 18m (group of 3). Scaled grading.</td>
+                            <tr style="background-color: rgba(0, 119, 218, 0.1);">
+                                <td>Distance</td>
+                                <td style="text-align: center; font-weight: bold; color: var(--primary);">50</td>
+                                <td>14m (groups of 1-2) or 18m (group of 3). Scaled grading.</td>
                             </tr>
-                            <!-- Construction -->
                             <tr>
-                                <td class="px-4 py-2 font-medium border-r">Construction</td>
-                                <td class="px-4 py-2 text-center font-bold border-r">0</td>
-                                <td class="px-4 py-2 text-sm">Pass/Fail: Homemade, 3+ wheels, mousetrap power.</td>
+                                <td>Construction</td>
+                                <td style="text-align: center; font-weight: bold;">0</td>
+                                <td>Pass/Fail: Homemade, 3+ wheels, mousetrap power.</td>
                             </tr>
-                            <!-- Title Page -->
                             <tr>
-                                <td class="px-4 py-2 font-medium border-r">Title Page</td>
-                                <td class="px-4 py-2 text-center font-bold border-r">2</td>
-                                <td class="px-4 py-2 text-sm">Standard formatting.</td>
+                                <td>Title Page</td>
+                                <td style="text-align: center; font-weight: bold;">2</td>
+                                <td>Standard formatting.</td>
                             </tr>
-                            <!-- Objective -->
                             <tr>
-                                <td class="px-4 py-2 font-medium border-r">Objective</td>
-                                <td class="px-4 py-2 text-center font-bold border-r">3</td>
-                                <td class="px-4 py-2 text-sm">Clear objective stated.</td>
+                                <td>Objective</td>
+                                <td style="text-align: center; font-weight: bold;">3</td>
+                                <td>Clear objective stated.</td>
                             </tr>
-                            <!-- Diagrams -->
                             <tr>
-                                <td class="px-4 py-2 font-medium border-r">Procedure/Diagrams</td>
-                                <td class="px-4 py-2 text-center font-bold border-r">10</td>
-                                <td class="px-4 py-2 text-sm">Top/Side views labeled with metric measurements.</td>
+                                <td>Procedure/Diagrams</td>
+                                <td style="text-align: center; font-weight: bold;">10</td>
+                                <td>Top/Side views labeled with metric measurements.</td>
                             </tr>
-                            <!-- Derivations/Math -->
-                            <tr class="bg-teal-50">
-                                <td class="px-4 py-2 font-medium border-r">Derivations & Calcs</td>
-                                <td class="px-4 py-2 text-center font-bold text-teal-700 border-r">30</td>
-                                <td class="px-4 py-2 text-sm">
+                            <tr style="background-color: rgba(0, 119, 218, 0.1);">
+                                <td>Derivations & Calcs</td>
+                                <td style="text-align: center; font-weight: bold; color: var(--primary);">30</td>
+                                <td>
                                     <strong>Derivations Required.</strong> No formulas without proof. <br>
                                     Include: Accel, Work, Energy, Coeff of Friction.
                                 </td>
                             </tr>
-                            <!-- Energy Charts -->
-                            <tr class="bg-teal-50">
-                                <td class="px-4 py-2 font-medium border-r">Physics & Energy</td>
-                                <td class="px-4 py-2 text-center font-bold text-teal-700 border-r">20</td>
-                                <td class="px-4 py-2 text-sm">
+                            <tr style="background-color: rgba(0, 119, 218, 0.1);">
+                                <td>Physics & Energy</td>
+                                <td style="text-align: center; font-weight: bold; color: var(--primary);">20</td>
+                                <td>
                                     <strong>Energy Bar Charts (LOL) included.</strong><br>
                                     Theory relates concepts to design. Correct grammar.
                                 </td>
                             </tr>
-                            <!-- Results -->
                             <tr>
-                                <td class="px-4 py-2 font-medium border-r">Results</td>
-                                <td class="px-4 py-2 text-center font-bold border-r">10</td>
-                                <td class="px-4 py-2 text-sm">Outcome analysis and error discussion.</td>
+                                <td>Results</td>
+                                <td style="text-align: center; font-weight: bold;">10</td>
+                                <td>Outcome analysis and error discussion.</td>
                             </tr>
-                            <!-- Sources -->
                             <tr>
-                                <td class="px-4 py-2 font-medium border-r">Sources</td>
-                                <td class="px-4 py-2 text-center font-bold border-r">5</td>
-                                <td class="px-4 py-2 text-sm">Proper citations.</td>
+                                <td>Sources</td>
+                                <td style="text-align: center; font-weight: bold;">5</td>
+                                <td>Proper citations.</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            
+
         </main>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // Navigation
-            const navLinks = document.querySelectorAll('.nav-link');
-            const pages = document.querySelectorAll('.page-content');
-            
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetId = link.getAttribute('data-target');
-                    pages.forEach(page => page.classList.toggle('hidden', page.id !== targetId));
-                    navLinks.forEach(navLink => navLink.classList.remove('active'));
-                    link.classList.add('active');
-                });
+        // Simple Tab Switching Logic
+        function switchTab(targetId, element) {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.remove('active');
             });
+            // Show target page
+            document.getElementById(targetId).classList.add('active');
+            
+            // Update Tab Styling
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
 
+        document.addEventListener('DOMContentLoaded', () => {
             // AP Grade Calculator (14m / 18m)
             const gradeCalculator = document.getElementById('gradeCalculator');
             const gradeResult = document.getElementById('gradeResult');
@@ -483,7 +546,7 @@
                     
                     if (isNaN(carDistance)) {
                         gradeResult.textContent = 'Invalid distance.';
-                        gradeResult.classList.add('text-red-600');
+                        gradeResult.style.color = 'var(--danger)';
                         return;
                     }
                     
@@ -492,7 +555,7 @@
                     score = Math.min(Math.max(score, 0), 50); 
                     
                     gradeResult.textContent = `AP Distance Score: ${score.toFixed(1)} / 50`;
-                    gradeResult.classList.remove('text-red-600');
+                    gradeResult.style.color = 'var(--primary)';
                 });
             }
 
@@ -504,43 +567,48 @@
                     datasets: [{
                         label: 'Distance (m)',
                         data: [],
-                        backgroundColor: 'rgba(13, 148, 136, 0.6)', /* Teal */
-                        borderColor: 'rgba(13, 148, 136, 1)',
+                        backgroundColor: 'rgba(0, 119, 218, 0.6)', /* Primary Blue */
+                        borderColor: 'rgba(0, 77, 128, 1)', /* Secondary */
                         borderWidth: 1
                     }]
                 };
 
-                const trialChart = new Chart(ctx.getContext('2d'), {
+                const chart = new Chart(ctx, {
                     type: 'bar',
                     data: trialData,
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
                         scales: {
-                            y: { beginAtZero: true, title: { display: true, text: 'Distance (m)' } },
-                            x: { title: { display: true, text: 'Trial' } }
-                        },
-                        plugins: { legend: { display: false } }
+                            y: { beginAtZero: true, title: { display: true, text: 'Distance (meters)' } }
+                        }
                     }
                 });
 
-                document.getElementById('dataForm').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    const distInput = document.getElementById('trialDistance');
-                    const dist = parseFloat(distInput.value);
-                    if (!isNaN(dist)) {
-                        trialData.labels.push(`T${trialData.labels.length + 1}`);
-                        trialData.datasets[0].data.push(dist);
-                        trialChart.update();
-                        distInput.value = '';
-                    }
-                });
+                const dataForm = document.getElementById('dataForm');
+                const resetBtn = document.getElementById('resetChartBtn');
 
-                document.getElementById('resetChartBtn').addEventListener('click', () => {
-                    trialData.labels = [];
-                    trialData.datasets[0].data = [];
-                    trialChart.update();
-                });
+                if (dataForm) {
+                    dataForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        const dist = parseFloat(document.getElementById('trialDistance').value);
+                        if (!isNaN(dist)) {
+                            const trialNum = trialData.labels.length + 1;
+                            trialData.labels.push(`Trial ${trialNum}`);
+                            trialData.datasets[0].data.push(dist);
+                            chart.update();
+                            document.getElementById('trialDistance').value = '';
+                        }
+                    });
+                }
+
+                if (resetBtn) {
+                    resetBtn.addEventListener('click', () => {
+                        trialData.labels = [];
+                        trialData.datasets[0].data = [];
+                        chart.update();
+                    });
+                }
             }
         });
     </script>
