@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AP Physics 1: Energy & Systems Lab</title>
+    
+    <!-- MathJax Configuration to allow single $ for inline math -->
+    <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+    </script>
+    <!-- Load MathJax from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        h2 {
+            color: #2980b9;
+            border-bottom: 2px solid #2980b9;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            font-size: 1.3rem;
+        }
+        h3 {
+            color: #444;
+            margin-top: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .header-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            margin-top: 30px;
+        }
+        .header-field {
+            width: 45%;
+        }
+        .instructions-box {
+            background-color: #e8f4fc;
+            border-left: 5px solid #2980b9;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .sim-link {
+            display: block;
+            text-align: center;
+            background-color: #27ae60;
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 20px 0;
+            transition: background 0.3s;
+        }
+        .sim-link:hover {
+            background-color: #219150;
+        }
+        /* Input Styling */
+        input[type="text"], input[type="number"], textarea {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 8px;
+            background-color: #fafafa;
+            font-family: inherit;
+            transition: border 0.3s;
+        }
+        input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
+            border-color: #2980b9;
+            background-color: #fff;
+            outline: none;
+        }
+        .text-input {
+            width: 100%;
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+        .inline-input {
+            width: 120px;
+            display: inline-block;
+            margin: 0 5px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            resize: vertical;
+            margin-top: 5px;
+        }
+        
+        /* Table Styling */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+        .data-table td, .data-table th {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .data-table th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+        }
+        
+        /* Energy Chart Table Specifics */
+        .energy-chart td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        .energy-chart input {
+            width: 80px;
+            text-align: center;
+        }
+
+        .ap-tip {
+            font-size: 0.9em;
+            color: #d35400;
+            font-style: italic;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .btn-print {
+            background-color: #34495e;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            display: block;
+            margin: 40px auto;
+        }
+        .btn-print:hover {
+            background-color: #2c3e50;
+        }
+
+        /* Print Optimization */
+        @media print {
+            body { background-color: white; padding: 0; margin: 0; }
+            .container { box-shadow: none; padding: 0; border: none; }
+            .sim-link, .btn-print, .instructions-box { display: none; }
+            input, textarea { border: 1px solid #999; background-color: white !important; }
+            textarea { resize: none; }
+            h2 { page-break-before: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>AP Physics 1 Lab: Energy & Systems</h1>
+    <p style="text-align: center; font-style: italic;">Conservation of Energy in the PhET Skate Park</p>
+
+    <div class="header-info">
+        <div class="header-field">
+            <label><strong>Student Name:</strong></label><br>
+            <input type="text" class="text-input" placeholder="Enter Name">
+        </div>
+        <div class="header-field">
+            <label><strong>Date:</strong></label><br>
+            <input type="text" class="text-input" placeholder="Enter Date">
+        </div>
+    </div>
+
+    <a href="https://phet.colorado.edu/en/simulations/energy-skate-park" target="_blank" class="sim-link">
+        Launch Simulation
+    </a>
+
+    <div class="instructions-box">
+        <strong>AP Constants & Equations:</strong>
+        <ul style="margin-bottom:0; padding-left: 20px;">
+            <li>$g \approx 9.8 \; m/s^2$ (or $10 \; m/s^2$ if typically used in your class)</li>
+            <li>Kinetic Energy: $K = \frac{1}{2}mv^2$</li>
+            <li>Gravitational Potential Energy: $U_g = mgh$</li>
+            <li>Mechanical Energy: $E = K + U_g$</li>
+        </ul>
+    </div>
+
+    <!-- PART 1 -->
+    <section>
+        <h2>Part 1: Defining the System</h2>
+        <span class="ap-tip">AP Physics requires careful definition of the "System" to determine if work is done by external forces.</span>
+        
+        <p>1. <strong>System A:</strong> Consider the system to be <strong>The Skater + Earth</strong>.</p>
+        <div style="margin-left: 20px; margin-bottom: 20px;">
+            <label>Is gravity considered an internal or external force in this system? Explain.</label>
+            <textarea style="height: 60px;"></textarea>
+            
+            <label>As the skater falls, does $U_g$ change? Does the total energy of the system change (assuming no friction)?</label>
+            <textarea style="height: 60px;"></textarea>
+        </div>
+
+        <p>2. <strong>System B:</strong> Consider the system to be <strong>The Skater Only</strong>.</p>
+        <div style="margin-left: 20px;">
+            <label>Is gravity considered an internal or external force in this system?</label>
+            <textarea style="height: 60px;"></textarea>
+            
+            <label>Does the "Skater Only" system possess Potential Energy? Why or why not?</label>
+            <textarea style="height: 60px;"></textarea>
+        </div>
+    </section>
+
+    <!-- PART 2 -->
+    <section>
+        <h2>Part 2: Energy Bar Charts (L-O-L Diagrams)</h2>
+        <p>Select the "Measure" mode. Turn <strong>Friction OFF</strong>. Place the skater at 6 meters high.</p>
+        <p>Fill in the table below to represent the energy states at two positions: <br>
+           <strong>Position A:</strong> Top of the ramp (Release point). <br>
+           <strong>Position B:</strong> Bottom of the ramp (Lowest point).
+        </p>
+
+        <table class="data-table energy-chart">
+            <thead>
+                <tr>
+                    <th style="width: 20%;">Energy Type</th>
+                    <th>Position A (Initial)</th>
+                    <th>+ Work ($W_{ext}$)</th>
+                    <th>= Position B (Final)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Kinetic ($K$)</strong></td>
+                    <td><input type="number" placeholder="Joules"></td>
+                    <td rowspan="3" style="background-color: #f9f9f9; vertical-align: middle;">
+                        <input type="number" placeholder="J">
+                        <br><small>(Work done by non-conservative forces)</small>
+                    </td>
+                    <td><input type="number" placeholder="Joules"></td>
+                </tr>
+                <tr>
+                    <td><strong>Potential ($U_g$)</strong></td>
+                    <td><input type="number" placeholder="Joules"></td>
+                    <td><input type="number" placeholder="Joules"></td>
+                </tr>
+                <tr>
+                    <td><strong>Total ($E$)</strong></td>
+                    <td><input type="number" placeholder="Total"></td>
+                    <td><input type="number" placeholder="Total"></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <label>Write the Conservation of Energy equation for this specific scenario based on your chart above (e.g., $U_{gi} = K_f$):</label>
+        <input type="text" class="text-input" placeholder="Enter equation here">
+    </section>
+
+    <!-- PART 3 -->
+    <section>
+        <h2>Part 3: Symbolic Derivation & Quantitative Analysis</h2>
+        
+        <h3>1. Symbolic Derivation</h3>
+        <label>Derive an expression for the final velocity ($v_f$) of the skater at the bottom of the ramp in terms of $g$ and starting height $h$. Assume the skater starts from rest and $U_g = 0$ at the bottom. Show your steps.</label>
+        <textarea placeholder="Start with: Energy Initial = Energy Final..."></textarea>
+        
+        <label>Does the mass $m$ appear in your final expression for velocity? What does this imply about the motion of a heavy skater vs. a light skater?</label>
+        <textarea style="height: 60px;"></textarea>
+
+        <h3>2. Verification with Data</h3>
+        <p>Use the "Measure" tool (purple sensor) to collect data and verify your derivation.</p>
+        <div style="background-color: #f8f9fa; padding: 10px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 15px;">
+            <strong>Trial Constants:</strong> Mass ($m$) = <input type="number" class="inline-input"> kg &nbsp;|&nbsp; Start Height ($h$) = <input type="number" class="inline-input"> m
+        </div>
+
+        <table class="data-table">
+            <tr>
+                <th>Theoretical Calculation</th>
+                <th>Experimental Measurement</th>
+            </tr>
+            <tr>
+                <td>
+                    Calculate predicted $v_f$ using your derived equation: <br>
+                    $v_f = \sqrt{2gh}$ <br><br>
+                    <input type="text" class="text-input" placeholder="Show calculation...">
+                    <strong>Predicted $v_f$:</strong> <input type="number" class="inline-input"> m/s
+                </td>
+                <td>
+                    Measure the actual speed at the bottom using the sensor.<br><br><br>
+                    <strong>Measured $v_f$:</strong> <input type="number" class="inline-input"> m/s
+                </td>
+            </tr>
+        </table>
+        
+        <label>Calculate the Percent Error: $\left( \frac{|\text{Experimental} - \text{Theoretical}|}{\text{Theoretical}} \right) \times 100$</label>
+        <input type="text" class="text-input" placeholder="Result %">
+    </section>
+
+    <!-- PART 4 -->
+    <section>
+        <h2>Part 4: Friction & Thermal Energy (Work-Energy Theorem)</h2>
+        <p>Turn Friction ON. Set it to a moderate level.</p>
+        
+        <label>1. Observe the "Thermal Energy" bar. Mathematically, how does the work done by friction ($W_f$) relate to the change in mechanical energy ($\Delta E$)?</label>
+        <input type="text" class="text-input" placeholder="e.g., W_f = ...">
+
+        <label>2. <strong>Paragraph Length Response:</strong> A student claims that "Energy is lost" when friction is present. Correct this statement using the Law of Conservation of Energy and the concept of "System." (5-7 sentences)</label>
+        <textarea style="height: 150px;"></textarea>
+    </section>
+
+    <button onclick="window.print()" class="btn-print">Print / Save as PDF</button>
+
+</div>
+
+</body>
+</html>
