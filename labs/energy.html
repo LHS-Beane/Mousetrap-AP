@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AP Physics 1 Lab: Conservation of Energy — PhET Skate Park</title>
+    <title>AP Physics 1 Lab: Conservation of Mechanical Energy — PhET Skate Park</title>
     
     <!-- MathJax -->
     <script>
@@ -14,21 +14,54 @@
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        :root {
+            --primary: #0077da;
+            --secondary: #004d80;
+            --accent: #ffcc00;
+            --light: #f5f5f5;
+            --dark: #333;
+            --white: #fff;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--dark);
             max-width: 900px;
             margin: 0 auto;
-            padding: 40px;
-            background-color: #f5f5f5;
+            padding: 0;
+            background-color: var(--light);
         }
+
+        /* Minimalist Header */
+        .header-bar {
+            width: 100%;
+            background: var(--secondary);
+            color: var(--white);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+        .header-bar a {
+            color: var(--white);
+            text-decoration: none;
+            margin-left: 15px;
+            font-weight: 500;
+        }
+        .header-bar a:hover {
+            color: var(--accent);
+        }
+
         .container {
             background-color: white;
+            margin-top: 20px;
             padding: 40px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
+
         h1 {
             text-align: center;
             color: #2c3e50;
@@ -58,6 +91,19 @@
             width: 45%;
         }
 
+        /* PhET responsive container */
+        .sim-container {
+            width: 100%;
+            margin: 20px auto;
+            text-align: center;
+        }
+        .sim-container iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: 6px;
+        }
+
         .instructions-box {
             background-color: #e8f4fc;
             border-left: 5px solid #2980b9;
@@ -66,64 +112,41 @@
             border-radius: 4px;
         }
 
-        .sim-link {
-            display: block;
-            text-align: center;
-            background-color: #27ae60;
-            color: white;
-            text-decoration: none;
-            padding: 15px;
-            border-radius: 5px;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-        .sim-link:hover {
-            background-color: #219150;
-        }
-
         input[type="text"], input[type="number"], textarea {
             border: 1px solid #ccc;
             border-radius: 4px;
             padding: 8px;
             background-color: #fafafa;
-            font-family: inherit;
-            transition: border 0.3s;
+            width: 100%;
+            margin-top: 5px;
+            margin-bottom: 15px;
         }
-        input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
-            border-color: #2980b9;
-            background-color: #fff;
-            outline: none;
+        textarea {
+            resize: vertical;
+            height: 100px;
         }
 
-        .text-input { width: 100%; margin-top: 5px; margin-bottom: 15px; }
-        .inline-input { width: 120px; display: inline-block; margin: 0 5px; }
-        textarea { width: 100%; height: 100px; resize: vertical; margin-top: 5px; }
+        .inline-input {
+            width: 120px;
+            display: inline-block;
+            margin-left: 5px;
+        }
 
+        /* Tables */
         .data-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
             margin-bottom: 20px;
         }
-        .data-table td, .data-table th {
+        .data-table th, .data-table td {
             border: 1px solid #ddd;
             padding: 12px;
             vertical-align: top;
         }
         .data-table th {
             background-color: #f2f2f2;
-            font-weight: 600;
-        }
-
-        .energy-chart td { text-align: center; }
-        .energy-chart input { width: 80px; }
-
-        .ap-tip {
-            font-size: 0.9em;
-            color: #d35400;
-            font-style: italic;
-            margin-bottom: 10px;
-            display: block;
+            font-weight: bold;
         }
 
         .btn-print {
@@ -137,173 +160,165 @@
             display: block;
             margin: 40px auto;
         }
-        .btn-print:hover {
-            background-color: #2c3e50;
-        }
-
-        @media print {
-            body { background-color: white; }
-            .sim-link, .btn-print, .instructions-box { display: none; }
-        }
     </style>
 </head>
 
 <body>
+
+<!-- Minimal Header -->
+<div class="header-bar">
+    <div><strong>AP Physics 1</strong></div>
+    <div>
+        <a href="/index.html">Home</a>
+        <a href="/AP1/labs/">Labs</a>
+        <a style="color: var(--accent); font-weight: 600;">Energy Skate Park</a>
+    </div>
+</div>
+
 <div class="container">
 
-    <h1>AP Physics 1 Lab: Conservation of Energy</h1>
-    <p style="text-align: center; font-style: italic;">Using the PhET Energy Skate Park Simulation</p>
+    <h1>AP Physics 1 Lab: Conservation of Mechanical Energy</h1>
+    <p style="text-align:center; font-style:italic;">Using the PhET “Energy Skate Park” Simulation</p>
 
     <div class="header-info">
         <div class="header-field">
-            <label><strong>Student Name:</strong></label><br>
-            <input type="text" class="text-input">
+            <label><strong>Student Name:</strong></label>
+            <input type="text">
         </div>
         <div class="header-field">
-            <label><strong>Date:</strong></label><br>
-            <input type="text" class="text-input">
+            <label><strong>Date:</strong></label>
+            <input type="text">
         </div>
     </div>
 
-    <a href="https://phet.colorado.edu/en/simulations/energy-skate-park" target="_blank" class="sim-link">
-        Launch PhET Simulation
-    </a>
+    <!-- Embedded PhET Simulation -->
+    <div class="sim-container">
+        <iframe 
+            src="https://phet.colorado.edu/sims/html/energy-skate-park/latest/energy-skate-park_en.html"
+            allowfullscreen>
+        </iframe>
+    </div>
 
     <div class="instructions-box">
         <strong>AP Physics 1 Reference Equations:</strong>
         <ul>
-            <li>$g = 9.8\ \text{m/s}^2$</li>
             <li>$K = \frac{1}{2}mv^2$</li>
             <li>$U_g = mgh$</li>
             <li>$E_{\text{mech}} = K + U_g$</li>
-            <li>Work-Energy Theorem: $\Delta E = W_{\text{ext}}$</li>
+            <li>$\Delta E = W_{\text{ext}}$</li>
         </ul>
     </div>
 
     <!-- PART 1 -->
     <section>
-        <h2>Part 1 — Defining the System (AP Big Idea: Systems & Interactions)</h2>
+        <h2>Part 1 — Defining the System (Systems & Interactions)</h2>
 
-        <span class="ap-tip">On the AP Exam, defining the system determines which forces are internal vs. external.</span>
+        <p><strong>System A: Skater + Earth</strong></p>
+        <label>Is gravity internal or external? Explain.</label>
+        <textarea></textarea>
 
-        <p>1. <strong>System A: Skater + Earth</strong></p>
-        <div style="margin-left: 20px;">
-            <label>Is gravity internal or external in this system? Explain.</label>
-            <textarea></textarea>
+        <label>Does total mechanical energy change with friction OFF? Explain using AP system language.</label>
+        <textarea></textarea>
 
-            <label>As the skater descends, does $U_g$ change? Does total mechanical energy change (with friction off)? Support your claim.</label>
-            <textarea></textarea>
-        </div>
+        <p><strong>System B: Skater Only</strong></p>
+        <label>Is gravity internal or external in this system?</label>
+        <textarea></textarea>
 
-        <p>2. <strong>System B: Skater Only</strong></p>
-        <div style="margin-left: 20px;">
-            <label>Is gravity internal or external in this system?</label>
-            <textarea></textarea>
-
-            <label>Does this system possess gravitational potential energy? Explain using the definition of a system.</label>
-            <textarea></textarea>
-        </div>
+        <label>Does “Skater Only” have gravitational potential energy? Why or why not?</label>
+        <textarea></textarea>
     </section>
 
     <!-- PART 2 -->
     <section>
         <h2>Part 2 — Energy Bar Charts (LOL Diagrams)</h2>
-        <p>Turn <strong>Friction OFF</strong>. Set height to 6 m. Use “Bar Graph” mode.</p>
+        <p>Turn <strong>Friction OFF</strong>. Set height to 6 m.</p>
 
-        <p>Fill in energy values (in Joules) at:</p>
-        <ul>
-            <li><strong>Position A:</strong> Release point (top)</li>
-            <li><strong>Position B:</strong> Lowest point</li>
-        </ul>
-
-        <table class="data-table energy-chart">
+        <table class="data-table">
             <thead>
                 <tr>
                     <th>Energy Type</th>
-                    <th>Position A</th>
-                    <th>+ Work ($W_{\text{ext}}$)</th>
-                    <th>Position B</th>
+                    <th>Position A (Top)</th>
+                    <th>+ Work</th>
+                    <th>Position B (Bottom)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>Kinetic</strong></td>
+                    <td>Kinetic</td>
                     <td><input type="number"></td>
-                    <td rowspan="3"><input type="number"><br><small>External Work</small></td>
-                    <td><input type="number"></td>
-                </tr>
-                <tr>
-                    <td><strong>Potential ($U_g$)</strong></td>
-                    <td><input type="number"></td>
+                    <td rowspan="3"><input type="number"><br><small>$W_{\text{ext}}$</small></td>
                     <td><input type="number"></td>
                 </tr>
                 <tr>
-                    <td><strong>Total Mechanical</strong></td>
+                    <td>Potential</td>
+                    <td><input type="number"></td>
+                    <td><input type="number"></td>
+                </tr>
+                <tr>
+                    <td>Total Mechanical</td>
                     <td><input type="number"></td>
                     <td><input type="number"></td>
                 </tr>
             </tbody>
         </table>
 
-        <label>Write the conservation equation for this situation:</label>
-        <input type="text" class="text-input" placeholder="Example: U_{gi} = K_f">
+        <label>Write the mechanical energy conservation equation for this event:</label>
+        <input type="text">
     </section>
 
     <!-- PART 3 -->
     <section>
-        <h2>Part 3 — Deriving and Verifying the Energy Model</h2>
+        <h2>Part 3 — Mathematical Model & Verification</h2>
 
-        <h3>1. Symbolic Derivation</h3>
-        <label>Derive an expression for $v_f$ at the bottom assuming the skater starts from rest.</label>
+        <h3>1. Derivation</h3>
+        <label>Derive an equation for $v_f$ at the bottom assuming $v_i = 0$.</label>
         <textarea placeholder="Hint: mgh = 1/2 mv^2"></textarea>
 
-        <label>Does mass cancel? What does that imply about skaters of different masses?</label>
+        <label>Does mass cancel? What does this imply?</label>
         <textarea></textarea>
 
-        <h3>2. Verification Using PhET Data</h3>
+        <h3>2. Compare to Simulation Data</h3>
 
-        <div style="background:#f8f8f8; padding:10px; border:1px solid #ddd; border-radius:4px;">
-            Mass <input type="number" class="inline-input"> kg  
-            &nbsp;&nbsp; Height <input type="number" class="inline-input"> m
+        <div style="background:#f8f8f8; padding:10px;">
+            Mass: <input type="number" class="inline-input"> kg  
+            Height: <input type="number" class="inline-input"> m
         </div>
 
         <table class="data-table">
             <tr>
-                <th>Theoretical</th>
-                <th>Measured</th>
+                <th>Theory</th>
+                <th>Measured (PhET)</th>
             </tr>
             <tr>
                 <td>
                     $v_f = \sqrt{2gh}$  
                     <textarea placeholder="Show work"></textarea>
-                    <strong>v<sub>theoretical</sub>:</strong> <input type="number" class="inline-input"> m/s
+                    <strong>v (theory):</strong> <input type="number" class="inline-input"> m/s
                 </td>
                 <td>
-                    <strong>v<sub>measured</sub>:</strong>  
-                    <input type="number" class="inline-input"> m/s
+                    <strong>v (measured):</strong> <input type="number" class="inline-input"> m/s
                 </td>
             </tr>
         </table>
 
         <label>Percent Error:</label>
-        <input type="text" class="text-input">
+        <input type="text">
     </section>
 
     <!-- PART 4 -->
     <section>
-        <h2>Part 4 — Friction, Thermal Energy, and the Work-Energy Theorem</h2>
+        <h2>Part 4 — Friction, Thermal Energy, & The Work-Energy Theorem</h2>
 
-        <p>Turn Friction ON (medium level).</p>
+        <label>1. When friction is ON, relate $W_f$ to $\Delta E_{\text{mech}}$:</label>
+        <input type="text">
 
-        <label>1. Relate work done by friction to the change in mechanical energy:</label>
-        <input type="text" class="text-input">
-
-        <label>2. A student states: “Energy is lost when friction is present.” Write a 5–7 sentence correction using conservation of energy and systems language.</label>
+        <label>2. A student claims “energy is lost.” Write a correct AP-style explanation (5–7 sentences).</label>
         <textarea style="height:150px;"></textarea>
     </section>
 
     <button onclick="window.print()" class="btn-print">Print / Save as PDF</button>
 
 </div>
+
 </body>
 </html>
