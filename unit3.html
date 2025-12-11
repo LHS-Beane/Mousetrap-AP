@@ -14,7 +14,10 @@
   <!-- MathJax -->
   <script>
     window.MathJax = {
-      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$','$$']] },
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$','$$']]
+      },
       svg: { fontCache: 'global' }
     };
   </script>
@@ -37,6 +40,7 @@
 
 <body class="bg-slate-100 text-slate-900">
 
+<!-- HEADER -->
 <header class="bg-gradient-to-r from-sky-700 via-sky-600 to-slate-900 text-white shadow-lg">
   <div class="max-w-4xl mx-auto px-4 py-6">
     <h1 class="text-3xl font-bold">AP Physics 1 – Unit 3 Review</h1>
@@ -44,18 +48,15 @@
   </div>
 </header>
 
+<!-- NAVIGATION -->
+<nav class="bg-slate-900 text-slate-100 text-sm">
+  <div class="max-w-4xl mx-auto px-4 py-2 flex items-center gap-4">
+    <a href="/AP1/index.html" class="hover:underline font-medium">Home</a>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
 <main class="max-w-4xl mx-auto px-4 py-6 space-y-6">
-
-  <!-- Utility: Collapsible Section Component -->
-  <!-- Each section follows same structure -->
-  <!-- ====================================== -->
-
-  <!-- Section Template -->
-  <!-- <div class="bg-white border rounded-xl shadow-sm">
-        <button class="collapsible-btn ...">...</button>
-        <div class="collapsible-content ...">...</div>
-       </div>
-  -->
 
   <!-- 1. Big Picture -->
   <div class="bg-white border border-slate-200 rounded-xl shadow-sm">
@@ -69,9 +70,9 @@
       <ul class="list-disc list-inside mt-2 space-y-1">
         <li>Use kinetic, gravitational, and elastic energy to describe motion.</li>
         <li>Connect force and displacement to work.</li>
-        <li>Use energy bar charts to represent transfers.</li>
-        <li>Apply energy conservation to solve for speeds, heights, and system behavior.</li>
-        <li>Compute power as the rate of doing work.</li>
+        <li>Interpret and build energy bar charts + graphs.</li>
+        <li>Apply conservation of energy to explain motion.</li>
+        <li>Compute and compare power as the rate of energy transfer.</li>
       </ul>
     </div>
   </div>
@@ -84,6 +85,7 @@
     </button>
 
     <div class="collapsible-content px-4 pb-4 text-sm leading-relaxed">
+
       <p class="mt-2">Kinetic energy describes the energy of motion:</p>
 
       <p class="text-center my-3">$$K = \tfrac12 m v^2$$</p>
@@ -91,18 +93,21 @@
       <ul class="list-disc list-inside space-y-1">
         <li>Depends on mass and <strong>speed</strong> only.</li>
         <li>If speed doubles → kinetic energy becomes <strong>4× larger</strong>.</li>
-        <li>K is always positive; direction does not matter.</li>
+        <li>K is always positive; direction of velocity doesn’t matter.</li>
       </ul>
 
+      <!-- Quick Check -->
       <div class="bg-slate-50 p-3 border rounded-xl mt-4">
         <p class="font-medium">Quick Check</p>
         <p>A car speeds up from 10 m/s to 20 m/s. By what factor does $K$ increase?</p>
         <button class="mt-2 px-2 py-1 border rounded answer-btn">Show Answer</button>
+
         <div class="answer hidden mt-1">
           $$K \propto v^2 \Rightarrow (20/10)^2 = 4.$$
           K increases by <strong>4×</strong>.
         </div>
       </div>
+
     </div>
   </div>
 
@@ -114,28 +119,36 @@
     </button>
 
     <div class="collapsible-content px-4 pb-4 text-sm leading-relaxed">
+
       <p class="mt-2">Work is energy transferred by a force acting through displacement.</p>
 
-      <p class="text-center my-3">$$W = F d \cos\theta$$</p>
+      <p class="text-center my-3">
+        $$W = F d \cos\theta$$
+      </p>
 
       <p class="text-center my-3">
-        $$W = \int F(x)\, dx \quad \text{(area under } F\!-\!x \text{ graph)}$$
+        $$W = \int F(x)\, dx \quad \text{(area under the } F\!-\!x \text{ graph)}$$
       </p>
 
       <ul class="list-disc list-inside space-y-1">
         <li>$W &gt; 0$ → system gains energy.</li>
         <li>$W &lt; 0$ → system loses energy.</li>
-        <li>Perpendicular force ($\theta=90^\circ$) does no work.</li>
+        <li>If force ⟂ displacement → $W = 0$.</li>
       </ul>
 
+      <!-- Quick Check -->
       <div class="bg-slate-50 p-3 border rounded-xl mt-4">
-        <p class="font-medium">Graph Quick Check</p>
-        <p>Force increases linearly from 0→10 N over 0→2 m. Compute work.</p>
+        <p class="font-medium">Quick Check</p>
+        <p>Force increases linearly from 0→10 N over 0→2 m. Compute the work.</p>
+
         <button class="mt-2 px-2 py-1 border rounded answer-btn">Show Answer</button>
+
         <div class="answer hidden mt-1">
-          Triangle area: $$W = \tfrac12 (2)(10)=10\text{ J}.$$
+          Triangle area:
+          $$W = \tfrac12 (2)(10)=10\text{ J}.$$
         </div>
       </div>
+
     </div>
   </div>
 
@@ -143,31 +156,34 @@
   <div class="bg-white border border-slate-200 rounded-xl shadow-sm">
     <button class="w-full flex justify-between items-center px-4 py-3 text-lg font-semibold collapsible-btn">
       4. Potential Energy (3.3)
-      <span class="transition-transform chevron">▶</span>
+      <span class="transition-transition chevron">▶</span>
     </button>
 
     <div class="collapsible-content px-4 pb-4 text-sm leading-relaxed">
-      <h3 class="font-semibold mt-3">Gravitational:</h3>
 
+      <h3 class="font-semibold mt-3">Gravitational Potential Energy</h3>
       <p class="text-center my-3">$$U_g = mgh$$</p>
 
-      <h3 class="font-semibold mt-3">Elastic:</h3>
-
+      <h3 class="font-semibold mt-3">Elastic Potential Energy</h3>
       <p class="text-center my-3">$$U_s = \tfrac12 k x^2$$</p>
 
       <ul class="list-disc list-inside space-y-1">
-        <li>Potential energy depends on your choice of zero level.</li>
-        <li>Elastic PE grows rapidly since it depends on $x^2$.</li>
+        <li>Potential energy is stored in interactions, not objects.</li>
+        <li>The zero level for $U_g$ is arbitrary but must be consistent.</li>
       </ul>
 
+      <!-- Quick Check -->
       <div class="bg-slate-50 p-3 border rounded-xl mt-4">
         <p class="font-medium">Quick Check</p>
-        <p>How much gravitational energy gained by lifting 2 kg up 1.5 m?</p>
+        <p>How much gravitational energy is gained by lifting 2 kg up 1.5 m?</p>
+
         <button class="mt-2 px-2 py-1 border rounded answer-btn">Show Answer</button>
+
         <div class="answer hidden mt-1">
           $$\Delta U = mgh = (2)(9.8)(1.5) \approx 29\text{ J}.$$
         </div>
       </div>
+
     </div>
   </div>
 
@@ -181,7 +197,7 @@
     <div class="collapsible-content px-4 pb-4 text-sm leading-relaxed">
 
       <p class="text-center my-3">
-        $$K_i + U_i = K_f + U_f \quad \text{(if no nonconservative work)}$$
+        $$K_i + U_i = K_f + U_f$$
       </p>
 
       <p class="text-center my-3">
@@ -189,13 +205,14 @@
       </p>
 
       <ul class="list-disc list-inside space-y-1">
-        <li>Friction and drag remove mechanical energy ($W_{nc} &lt; 0$).</li>
-        <li>Energy bar charts help visualize transfers.</li>
+        <li>Mechanical energy is conserved only if $W_{nc} = 0$.</li>
+        <li>Friction and drag convert mechanical energy into thermal energy.</li>
       </ul>
 
+      <!-- Quick Check -->
       <div class="bg-slate-50 p-3 border rounded-xl mt-4">
         <p class="font-medium">Quick Check</p>
-        <p>Roller coaster drops 20 m from rest. Speed at bottom?</p>
+        <p>A roller coaster drops 20 m from rest. What is its speed at the bottom (no friction)?</p>
 
         <button class="mt-2 px-2 py-1 border rounded answer-btn">Show Answer</button>
 
@@ -203,6 +220,7 @@
           $$mgh = \tfrac12 mv^2 \Rightarrow v=\sqrt{2gh} \approx 20\text{ m/s}.$$
         </div>
       </div>
+
     </div>
   </div>
 
@@ -220,25 +238,29 @@
       </p>
 
       <ul class="list-disc list-inside space-y-1">
-        <li>Power is how fast energy is transferred.</li>
+        <li>Power measures how fast energy is transferred.</li>
         <li>High force or high speed → high power.</li>
       </ul>
 
+      <!-- Quick Check -->
       <div class="bg-slate-50 p-3 border rounded-xl mt-4">
         <p class="font-medium">Quick Check</p>
-        <p>Find power: a 70 kg student climbs 3 m in 4 s.</p>
+        <p>A 70 kg student climbs 3 m in 4 s. Estimate average power.</p>
+
         <button class="mt-2 px-2 py-1 border rounded answer-btn">Show Answer</button>
+
         <div class="answer hidden mt-1">
           $$W = mgh = 70(9.8)(3) \approx 2058\text{ J}$$
-          $$P = 2058/4 \approx 515\text{ W}.$$
+          $$P = \frac{2058}{4} \approx 515\text{ W}.$$
         </div>
       </div>
+
     </div>
   </div>
 
 </main>
 
-<!-- JS for collapsibles and answers -->
+<!-- JS FOR COLLAPSIBLES + ANSWERS -->
 <script>
   document.querySelectorAll('.collapsible-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -266,3 +288,4 @@
 
 </body>
 </html>
+
