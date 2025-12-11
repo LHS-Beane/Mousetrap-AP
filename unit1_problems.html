@@ -1,1 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unit 1 Problem Set | AP Physics 1</title>
+
+<!-- MathJax -->
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+:root {
+  --primary: #0077da;
+  --secondary: #004d80;
+  --accent: #ffcc00;
+  --light: #f4f4f4;
+  --dark: #333;
+  --white: #fff;
+  --shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--light);
+  color: var(--dark);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* Top Nav */
+.navbar {
+  background: var(--secondary);
+  color: var(--white);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar a {
+  color: var(--white);
+  text-decoration: none;
+  margin-left: 15px;
+  font-weight: 500;
+}
+.navbar a:hover { color: var(--accent); }
+
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  background: var(--white);
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+h1, h2 {
+  color: var(--secondary);
+}
+
+.problem-card {
+  background: var(--white);
+  padding: 20px;
+  margin-bottom: 25px;
+  border-left: 5px solid var(--primary);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+}
+
+details {
+  margin-top: 15px;
+  background: #eef6ff;
+  padding: 10px;
+  border-radius: 5px;
+  border-left: 3px solid var(--primary);
+}
+
+summary {
+  cursor: pointer;
+  font-weight: bold;
+  color: var(--secondary);
+  font-size: 1rem;
+}
+
+summary:hover {
+  color: var(--primary);
+}
+
+.answer {
+  padding: 10px;
+  background: var(--white);
+  border-radius: 5px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+  font-size: 0.9rem;
+  margin-top: 40px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navigation -->
+<div class="navbar">
+  <div><strong>AP Physics 1</strong></div>
+  <div>
+    <a href="/index.html">Home</a>
+    <a href="/AP1/unit1.html">Unit 1</a>
+    <a href="/AP1/labs/">Labs</a>
+  </div>
+</div>
+
+<div class="container">
+<h1>Unit 1 Problem Set — Kinematics</h1>
+<p style="font-size:1.1rem;">Multiple Choice + Free Response with click-to-reveal solutions.</p>
+
+<!-- ----------------------- MULTIPLE CHOICE ---------------------- -->
+<h2>Multiple Choice</h2>
+
+<div class="problem-card">
+  <p><strong>1.</strong> A position vs time graph is a straight line with positive slope. What is true?</p>
+  <ol type="A">
+    <li>The cart’s speed is increasing.</li>
+    <li>The cart is moving at constant velocity.</li>
+    <li>The cart’s acceleration is constant and nonzero.</li>
+    <li>The cart is at rest.</li>
+  </ol>
+
+  <details>
+    <summary>Show Answer</summary>
+    <div class="answer"><strong>Correct Answer: B</strong><br>
+    A straight line on an $x$–$t$ graph means constant velocity, so acceleration is zero.</div>
+  </details>
+</div>
+
+<div class="problem-card">
+  <p><strong>2.</strong> An object’s velocity-time graph is a horizontal line at $v = -3\text{ m/s}$. What is true?</p>
+  <ol type="A">
+    <li>The object is slowing down.</li>
+    <li>The object has constant negative acceleration.</li>
+    <li>The object moves at constant speed in the negative direction.</li>
+    <li>The object is stationary.</li>
+  </ol>
+
+  <details>
+    <summary>Show Answer</summary>
+    <div class="answer"><strong>Correct Answer: C</strong><br>
+    A horizontal $v$–$t$ line means constant velocity.</div>
+  </details>
+</div>
+
+<div class="problem-card">
+  <p><strong>3.</strong> A projectile at its highest point has:</p>
+  <ol type="A">
+    <li>$v_x=0$, $v_y=0$</li>
+    <li>$v_x=0$, $v_y\neq 0$</li>
+    <li>$v_x\neq 0$, $v_y=0$</li>
+    <li>$v_x\neq 0$, $v_y\neq 0$</li>
+  </ol>
+
+  <details>
+    <summary>Show Answer</summary>
+    <div class="answer"><strong>Correct Answer: C</strong><br>
+    At the peak, vertical velocity is zero but horizontal velocity is unchanged.</div>
+  </details>
+</div>
+
+<div class="problem-card">
+  <p><strong>4.</strong> A student walks 3 m east and then 4 m north. What is the displacement?</p>
+  <ol type="A">
+    <li>1 m</li>
+    <li>5 m</li>
+    <li>7 m</li>
+    <li>12 m</li>
+  </ol>
+
+  <details>
+    <summary>Show Answer</summary>
+    <div class="answer"><strong>Correct Answer: B</strong><br>
+    Use Pythagorean theorem: $\sqrt{3^2 + 4^2} = 5$ m.</div>
+  </details>
+</div>
+
+<!-- ----------------------- SHORT FREE RESPONSE ---------------------- -->
+<h2>Short Free Response</h2>
+
+<div class="problem-card">
+  <p><strong>5.</strong> An object’s velocity increases linearly from $2$ m/s to $6$ m/s over 4 seconds.</p>
+
+  <p><strong>(a)</strong> Find acceleration.</p>
+  <p><strong>(b)</strong> Determine displacement from the graph.</p>
+  <p><strong>(c)</strong> Verify using $x = v_0 t + \tfrac{1}{2}at^2$.</p>
+
+  <details>
+    <summary>Show Solution</summary>
+    <div class="answer">
+      (a) $a = \frac{6 - 2}{4} = 1\ \text{m/s}^2$<br><br>
+      (b) Area under $v$–$t$ graph = average velocity × time = $4 \times 4 = 16$ m<br><br>
+      (c) $x = (2)(4) + \frac12 (1)(4^2) = 8 + 8 = 16$ m
+    </div>
+  </details>
+</div>
+
+<div class="problem-card">
+  <p><strong>6.</strong> Two cars begin at the same position.  
+  Car A moves at $10$ m/s.  
+  Car B starts from rest and accelerates at $2\ \text{m/s}^2$.</p>
+
+  <p><strong>(a)</strong> Write expressions for $x_A(t)$ and $x_B(t)$.  
+  <p><strong>(b)</strong> When does B catch A?</p>
+  <p><strong>(c)</strong> Sketch a position–time graph.</p>
+
+  <details>
+    <summary>Show Solution</summary>
+    <div class="answer">
+    $x_A = 10t$<br>
+    $x_B = \frac12 (2)t^2 = t^2$<br><br>
+    Solve $10t = t^2 \Rightarrow t(t - 10) = 0$ → $t = 10$ s<br>
+    Car B catches A at 10 seconds.
+    </div>
+  </details>
+</div>
+
+<div class="problem-card">
+  <p><strong>7.</strong> A ball is dropped from rest.  
+  <strong>(a)</strong> Velocity after 3 s?  
+  <strong>(b)</strong> Distance fallen?  
+  <strong>(c)</strong> Sketch $v$–$t$ graph.</p>
+
+  <details>
+    <summary>Show Solution</summary>
+    <div class="answer">
+    (a) $v = gt = (9.8)(3) = 29.4$ m/s  
+    <br><br>
+    (b) $y = \frac12 gt^2 = 0.5(9.8)(9) = 44.1$ m  
+    <br><br>
+    (c) Straight line from 0 to 29.4 with slope $g$.
+    </div>
+  </details>
+</div>
+
+<!-- ----------------------- LONG FREE RESPONSE ---------------------- -->
+<h2>Long Free Response</h2>
+
+<div class="problem-card">
+  <p><strong>8.</strong> A constant-velocity buggy’s $x$–$t$ graph is a straight line.  
+  Write a <strong>CER</strong> response evaluating:  
+  <em>“The buggy always moves at exactly the same velocity.”</em></p>
+
+  <details>
+    <summary>Show Solution</summary>
+    <div class="answer">
+    <strong>Claim:</strong> The buggy moves at approximately constant velocity, but not perfectly constant.<br><br>
+    <strong>Evidence:</strong> The $x$–$t$ graph is nearly a straight line, but data points scatter slightly around the best-fit line.<br><br>
+    <strong>Reasoning:</strong> A straight line indicates constant velocity because the slope (velocity) does not change. The scatter indicates measurement uncertainty or small variations in the buggy’s motor output.
+    </div>
+  </details>
+</div>
+
+<div class="problem-card">
+  <p><strong>9.</strong> A projectile is launched from 1.0 m at $8.0$ m/s at $40^\circ$.</p>
+
+  <p><strong>(a)</strong> Find $v_x$ and $v_y$.</p>
+  <p><strong>(b)</strong> Write $x(t)$ and $y(t)$.</p>
+  <p><strong>(c)</strong> Find maximum height.</p>
+  <p><strong>(d)</strong> Time of flight.</p>
+  <p><strong>(e)</strong> Range.</p>
+
+  <details>
+    <summary>Show Solution</summary>
+    <div class="answer">
+      Components:  
+      $v_x = 8\cos40^\circ = 6.13$ m/s  
+      <br>$v_y = 8\sin40^\circ = 5.14$ m/s  
+      <br><br>
+      Position functions:  
+      $x = v_x t$  
+      <br>$y = 1.0 + v_y t - \tfrac12 g t^2$  
+      <br><br>
+      Max height: occurs at $t = v_y/g = 0.525$ s  
+      <br>$h = 1.0 + (5.14)(0.525) - 0.5(9.8)(0.525^2) = 2.35$ m  
+      <br><br>
+      Total time: solve $y(t)=0$ → $t = 1.17$ s  
+      <br><br>
+      Range:  
+      $x = v_x t = 6.13(1.17) = 7.17$ m  
+    </div>
+  </details>
+</div>
+
+</div>
+
+<footer>
+  <p>AP Physics 1 — Unit 1 Problem Set | Click to Reveal Solutions</p>
+</footer>
+
+</body>
+</html>
 
