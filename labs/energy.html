@@ -32,6 +32,24 @@
             padding: 0;
             background-color: var(--light);
         }
+@media print {
+    /* Hide simulation */
+    .sim-container,
+    .sim-container iframe {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    /* Optional: hide buttons */
+    .btn-print {
+        display: none !important;
+    }
+
+    /* Remove extra whitespace left behind */
+    body {
+        margin-top: 0 !important;
+    }
+}
 
         /* Minimalist Header */
         .header-bar {
